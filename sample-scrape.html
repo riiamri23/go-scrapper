@@ -1,0 +1,1446 @@
+
+<style>
+html, body {
+	font-family: sans-serif;
+}
+form div {
+	display: inline-block;
+	margin-right: 1rem;
+}
+tr {background-color: #F5F5F5;}
+.fontred {color: #FF0000;}
+.bgred {background-color: #FCD5B4;}
+.bgoff {background-color: #FBCFD0;}
+.bgtoday {background-color: #0000FF;color: #FFFFFF;}
+
+.bgsts1 {background-color: #EA4335; text-align: center;}
+.bgsts2 {background-color: #34A853; text-align: center;}
+.bgsts3 {background-color: #FBBC05; text-align: center;}
+.bgsts4 {background-color: #4285F4; text-align: center;}
+.bgsts5 {background-color: #EA4335; text-align: center;}
+.bgstsend {border-right: 2px solid #777;}
+.greyfont {color: #BBBBBB;}
+.inline-form div {
+	display: inline-block;
+	margin-right: 1rem;
+	font-size: 0.8rem;
+}
+.btn-link {
+	border: 0px;
+	background-color: rgba(255,255,255,0);
+}
+</style>
+
+<script>
+function popup(theurl,popname) {
+	window.open(theurl,popname,'width=1000,height=600,scrollbars=yes,status=yes')
+}
+</script>
+<script src="assets/js/micromodal.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/tippy.min.js"></script>
+<link rel='stylesheet' href='assets/css/light.css' type='text/css' media='all' />
+
+
+
+
+<form name="frm1" class="inline-form" action="" method="post">
+<div> 
+		<style>
+		.hamburger {padding: 0px; background-color: #ffffff; margin-right: 0px; border:0px; max-width: 25px;}
+		.b {width: 20px; height: 2px; background-color: #000000; margin-bottom: 2px; margin-left: 0px; display: block !important;}
+		.nav {position: fixed; z-index:1000; border: 1px solid #000000; background-color: #ffffff; padding: 1rem;}
+		.ulNav {margin: 0px; padding: 0px;}
+		</style>
+		<button type="button" class="hamburger" onclick="toggleNav();">
+			<div class="b"></div>
+			<div class="b"></div>
+			<div class="b"></div>
+		</button>
+		<div class="nav" id="mainNav" style="display:none;" onClick="toggleNav();">
+			<ul class="ulNav">
+				<li><a href="devtimelinereport.cfm">Timeline Report</a></li>
+				<li><a href="resourceusage.cfm">Resource Usage</a></li>
+				<li><a href="devtimelinebydeveloper.cfm">Developer Timeline</a></li>
+			</ul>
+		</div>
+		<script>
+			function toggleNav() {
+				let n = document.getElementById("mainNav");
+				if (n.style.display=="none") {n.style.display="block";} else {n.style.display="none";}
+			}
+		</script>
+	</div>
+<div>
+	<label>Department</label>
+	<select name="dept"  onchange="document.frm1.submit();">
+	<option value="BENEFITS" >BENEFITS</option><option value="DEVSECOPS" >DEVSECOPS</option><option value="ERP" >ERP</option><option value="HR" selected>HR</option><option value="IMP-AT" >IMP-AT</option><option value="IMP-FP" >IMP-FP</option><option value="IMP-YO" >IMP-YO</option><option value="QA" >QA</option><option value="SM-HR5" >SM-HR5</option><option value="SPECIAL" >SPECIAL</option><option value="TECH" >TECH</option>
+	</select>
+	<a href="team.cfm?department=HR" target="_blank">Edit</a>
+</div>
+<div>
+	<label>PLAN DATE:</label>
+	<input type="date" name="txtStartDate" value="2024-08-28" size="10" maxlength="10"> - 
+	<input type="date" name="txtEndDate" value="2024-09-14" size="10" maxlength="10">
+</div>
+<div>
+<label>DEV:</label>
+<select name="selEmp" onchange="frm1.submit()">
+	<option value="0">--Select--
+	
+	<option value="33379" >Anastasya  Carlita 
+	<option value="33511" >Andry  
+	<option value="39007" >Famil Restu Pambudi Yusuf 
+	<option value="33495" >Jimmy  Halim 
+	<option value="39010" >Kristian Tjandradiredja 
+	<option value="33660" >Maghdalena Septhy Prihatiningsih 
+	<option value="41360" >Nanda  Firmansyah 
+	<option value="33432" >Nur Diana. S 
+	<option value="33571" >Rangga  Rahmadi 
+	<option value="33544" >Regizla O. Huwae 
+	<option value="33729" >Ricky  
+	<option value="33744" >Rizki  Syaifullah 
+	<option value="40237" >Shofan  Amirudin 
+	<option value="1" >---------------------------------------- 
+	<option value="42675" >Ade Firman Ardiansyah 
+	<option value="42643" >Adven Adam Khasbialloh 
+	<option value="38824" >Afriya  Safitrie 
+	<option value="40774" >Ahmad  Banyu  Rachman 
+	<option value="43139" >Ali  Susanto 
+	<option value="42897" >Altundri Wahyu Hidayatullah 
+	<option value="38948" >Alvin Indra Cahya 
+	<option value="43780" >Arif Widiasan Subagio 
+	<option value="37069" >Daniel Adi Wijaya 
+	<option value="43889" >Dilivio Cullen L Tilaar 
+	<option value="43141" >Dini  Mustika 
+	<option value="40363" >Erlina  
+	<option value="43096" >Ermadani Dyah Rachmawati 
+	<option value="40042" >Fadlan  Wildan 
+	<option value="39505" >Faissy Gratty Jenifer Ratu 
+	<option value="43781" >Farrell Adra Khalfani 
+	<option value="39015" >Ferdian R Saputra 
+	<option value="38798" >Indah Ainur Rahma 
+	<option value="43284" >Indra  Septian Heru Sasongko 
+	<option value="42978" >Jufrensius Antony Barasa 
+	<option value="42290" >Mohamad Rizal Khamami 
+	<option value="41447" >Mohammad Taufiqurrahman Farhansyah Putra 
+	<option value="39875" >Muhammad  Hidayatullah 
+	<option value="42190" >Muhammad Banyu Mubarok 
+	<option value="41187" >Muhammad Irfan Bisyr 
+	<option value="43617" >Muhammad Nur Ichsan 
+	<option value="43839" >Nathaniel Dwiputra  Kuantama 
+	<option value="42981" >Ningsih  Adityas 
+	<option value="43784" >Oky  Trilupito 
+	<option value="42294" >Restu Averian Putra 
+	<option value="43613" >Rizki Dharmawan Pohan 
+	<option value="43252" >Salman Said Ramadhan 
+	<option value="43302" >Stevano Titondea Prayoga Putra 
+	<option value="41265" selected>Syaeful  Amri 
+	<option value="39480" >Syaifullah  
+	<option value="42373" >Vincent  Handoko 
+	<option value="40720" >Yehezkiel  Wijaya 
+	<option value="88" >*ALL*
+</select>
+</div>
+<div>
+<input type="checkbox" name="chkincludeteam"  onclick="frm1.submit()">include team members
+</div>
+
+
+<div>
+<input type="checkbox" name="chkinclusive"  onclick="frm1.submit()">inclusive
+</div>
+
+<div>
+	<input type="submit" name="btnSubmit" value="View">
+</div>
+<br>
+<div>
+	<label>TASK:</label>
+	<input type="checkbox" name="chktasktype" value="E" checked>Enhancement 
+	<input type="checkbox" name="chktasktype" value="BE" checked>Bug (External)
+	<input type="checkbox" name="chktasktype" value="BI" checked>Bug (Internal)
+	<input type="checkbox" name="chktasktype" value="I" checked>IOW
+	<input type="checkbox" name="chktasktype" value="S" checked>Support
+	<input type="checkbox" name="chktasktype" value="P" >Proposed Enc
+	<input type="checkbox" name="chktasktype" value="CRQ" checked>Change Request
+	<input type="checkbox" name="chktasktype" value="T" >Testing
+	
+</div>
+<div>
+	<input type="checkbox" name="chkshowrelated" value="1"  onclick="frm1.submit()">Show Related Task
+</div>
+<div>
+	<input type="checkbox" name="chktimeline" value="1"  onclick="frm1.submit()">Timeline format
+</div>
+<br>
+<div>
+	<input type="checkbox" name="chkonlycurrent" value="1" checked>Only show tasks with plan date within the period
+</div>
+<div>
+	<input type="checkbox" name="chkShowTicket" value="1" >Show Ticket No
+</div>
+<div>
+	<input type="checkbox" name="chkShowNoAssignmentEmp" value="1" >Show Employee Without Assignment
+</div>
+</form>
+
+
+
+
+
+<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="0">
+	<tr>
+		<th rowspan="2">NO</th>
+		<th rowspan="2">Resource</th>
+		<th rowspan="2">Man-Hours</th>
+		
+			<th colspan="4">August</th>
+		
+			<th colspan="14">September</th>
+		
+	</tr>
+	<tr>
+		
+		<th width="22" >28</th>
+		
+		<th width="22" >29</th>
+		
+		<th width="22" >30</th>
+		
+		<th width="22" class="bgtoday">31</th>
+		
+		<th width="22" >1</th>
+		
+		<th width="22" >2</th>
+		
+		<th width="22" >3</th>
+		
+		<th width="22" >4</th>
+		
+		<th width="22" >5</th>
+		
+		<th width="22" >6</th>
+		
+		<th width="22" >7</th>
+		
+		<th width="22" >8</th>
+		
+		<th width="22" >9</th>
+		
+		<th width="22" >10</th>
+		
+		<th width="22" >11</th>
+		
+		<th width="22" >12</th>
+		
+		<th width="22" >13</th>
+		
+		<th width="22" >14</th>
+		
+	</tr>
+	
+		<tr style="background-color:#EEEEEE;">
+			
+				<td rowspan="4">1</td>
+				<td rowspan="4"> 
+	
+		<img class="tippyimg" src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg" 
+			data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg' style='max-width:100px;max-height:133px;'>"
+			style="max-width:30px;max-height:75px;">
+		
+	Syaeful  Amri</td>
+				<td rowspan="4" align="center">124</td>
+				
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0955191">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0956727">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0956727">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0956727">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0956727">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0956727">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2406-0935121">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+		</tr>
+	
+		<tr style="background-color:#EEEEEE;">
+			
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957027">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0958143">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0958605">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0954552">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0954552">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0954552">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0949608">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+		</tr>
+	
+		<tr style="background-color:#EEEEEE;">
+			
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957858">
+							4.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts3 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0954627">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+		</tr>
+	
+		<tr style="background-color:#EEEEEE;">
+			
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0957908">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 "
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0958426">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				
+					class="bgsts2 bgstsend"
+				
+				>
+					
+						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+								data-ticket="TCK2408-0958426">
+							8.00 
+						</button>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				
+				>
+					
+				</td>
+				
+				<td
+				class="bgoff"
+				
+				>
+					
+				</td>
+				
+		</tr>
+	
+
+</table>
+<br>
+<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+<tr><th>LEGEND</th></tr>
+<tr><td>
+	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+	<tr>
+	<th width="15" class="bgtoday">31</th>
+	<td>Today</td>
+	</tr>
+	</table>
+</td></tr>
+<tr><td>
+	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+	<tr><td width="15" class="bgsts1">&nbsp;</td><td>Open/Reopen</td></tr>
+	<tr><td width="15" class="bgsts3">&nbsp;</td><td>Responded</td></tr>
+	<tr><td width="15" class="bgsts2">&nbsp;</td><td>Fixed</td></tr>
+	<tr><td width="15" class="bgsts4">&nbsp;</td><td>Closed</td></tr>
+	</table>
+</td></tr>
+<tr><td>
+	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+	<tr><td class="fontred">TASK NO</td><td>Plan date not set or is expired</td></tr>
+	</table>
+</td></tr>
+</table>	
+	
+<script>
+	tippy('.tippyimg', { theme: 'light', });
+</script>
+
+
+
+<style>
+/**************************\
+  Basic Modal Styles
+\**************************/
+.modal {
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__container {
+  background-color: #fff;
+  padding: 30px;
+  max-width: 50vw;
+  max-height: 100vh;
+  border-radius: 4px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: #565656;
+  box-sizing: border-box;
+}
+
+.modal__close {
+  background: transparent;
+  border: 0;
+}
+
+.modal__header .modal__close:before { content: "\2715"; }
+
+.modal__content {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: rgba(0,0,0,.8);
+}
+
+.modal__btn {
+  font-size: .875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  background-color: #e6e6e6;
+  color: rgba(0,0,0,.8);
+  border-radius: .25rem;
+  border-style: none;
+  border-width: 0;
+  cursor: pointer;
+  -webkit-appearance: button;
+  text-transform: none;
+  overflow: visible;
+  line-height: 1.15;
+  margin: 0;
+  will-change: transform;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  transition: -webkit-transform .25s ease-out;
+  transition: transform .25s ease-out;
+  transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+}
+
+.modal__btn:focus, .modal__btn:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.modal__btn-primary {
+  background-color: #00449e;
+  color: #fff;
+}
+
+
+
+/**************************\
+  Demo Animation Style
+\**************************/
+@keyframes mmfadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes mmfadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+
+@keyframes mmslideIn {
+  from { transform: translateY(15%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes mmslideOut {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10%); }
+}
+
+.micromodal-slide {
+  display: none;
+}
+
+.micromodal-slide.is-open {
+  display: block;
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__overlay {
+  animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__container {
+  animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__overlay {
+  animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__container {
+  animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+}
+
+.micromodal-slide .modal__container,
+.micromodal-slide .modal__overlay {
+  will-change: transform;
+}
+</style>
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 class="modal__title" id="modal-1-title">
+            Ticket
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+          <p>
+            Try hitting the <code>tab</code> key and notice how the focus stays within the modal itself. Also, <code>esc</code> to close modal.
+          </p>
+        </main>
+        <footer class="modal__footer">
+          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+        </footer>
+      </div>
+    </div>
+</div>
+<script>
+var tiket = [];
+
+		tiket["TCK2408-0949608"] = {
+			subject: "PT Semesta Mandiri Transport\t(sfgo5901)  - Attendance Correction Request tidak mngupdate attedance status", 
+			description: "<p>Dear Mas Syaeful &amp; team,</p><p><br></p><p>Mohon bantuannya Mas.</p><p>Terdapat case di PT Semesta Mandiri Transport(sfgo5901), ada karyawan (a.n. Mulyono) melakukan attendance correction request dan statusnya tidak terupdate. Untuk request tersebut pun sudah fully approved, di attendance edit pun juga tidak terupdate. Detail akan saya sampaikan melalui Skype.</p><p><br></p><p>Terima kasih Mas.</p><p><br></p><p>Regards,</p><p>Rana.</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "8", 
+			planStart: "09/06/2024", 
+			planEnd: "09/06/2024",
+			slaDesc: "Major",
+			reportedDate: "08/01/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
+			photo: "62010211790.jpg",
+			reportedBy: "Rana Sekar Adhi",
+		};
+	
+		tiket["TCK2408-0958605"] = {
+			subject: "w0004 UBE : \'Shift schedule request\' button is not shows at UBA and UBS", 
+			description: "<p>hi Amri,</p><p>please help fixing with \'shift schedule request\' button&nbsp;</p><p>when I\'m switch to UBS and UBA \'shift schedule request\' button is disappear</p><p>it\'s only show in UBE company</p><p><span style=\"background-color: rgb(255, 255, 0);\">Remark : please fix this issue both on Production and on UAT database</span></p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">credential for w0004</strong></p><p>Account Name: w0004&nbsp;</p><p>User Name: w0004&nbsp;</p><p>Password:P@ss1234&nbsp;</p><p>&nbsp;</p><p><span style=\"background-color: rgb(229, 241, 143);\">for production</span></p><p><strong>PROD : myworkplaze.com&nbsp;</strong></p><p><strong>Authorization ID:</strong> 73BDF640665E7FDA38D16A36AC780FE7&nbsp;</p><p>Pass Key : F631CC977A3F104AB32891CAC809464B88E32817DA09049A1CDDF07DCBC70DF9&nbsp;</p><p><span style=\"background-color: rgb(229, 241, 143);\">for UAT</span></p><p><strong>UAT : </strong><a href=\"https://uat.myworkplaze.com/\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>https://uat.myworkplaze.com</strong></a></p><p><strong>Authorization ID:</strong> 140C20D3FF8DD6A6BAD3B3063F0838F5&nbsp;</p><p><strong>Pass Key </strong>: 3EB0BCA2DA9FC0B7FAE9AD102AE8B1CF6D45445A04E13343E8BB172E1F5BEC5</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "8", 
+			planStart: "08/30/2024", 
+			planEnd: "08/30/2024",
+			slaDesc: "Major",
+			reportedDate: "08/30/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Soraya  HTH",
+		};
+	
+		tiket["TCK2408-0957908"] = {
+			subject: "[TCK2408-0957027] [MY][LLMR]System did not check the employee\'s actual break time when calculating the OT hours", 
+			description: "<p>Overtime hour tidak memotong actual break time hour, tapi memotong break time default yang sudah dijadwalkan. Misalkan :</p><p>Employee working from 09:00 to 23:00 (OFF Day)</p><p>and took break on the following time:</p><p><span style=\"color: rgb(255, 0, 0);\">11:00 to 14:00</span></p><p><span style=\"color: rgb(255, 0, 0);\">17:00 to 19:00</span></p><p><br></p><p><span style=\"color: rgb(255, 0, 0);\">Total Break = 5 Hours</span></p><p><br></p><p>By right, the system should calculate the OT hours as per the following:</p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">09:00 to 23:00 = 14 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Break = 5 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Total OT = 14 -5&nbsp;= 9 Hours</strong></p><p><br></p><p>But currently the system calculated it as 11 Hours.</p><p><br></p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "8", 
+			planStart: "08/28/2024", 
+			planEnd: "08/28/2024",
+			slaDesc: "Medium",
+			reportedDate: "08/28/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
+			photo: "62010211790.jpg",
+			reportedBy: "Mauriska  Salsabila",
+		};
+	
+		tiket["TCK2408-0957027"] = {
+			subject: "[MY][LLMR]System did not check the employee\'s actual break time when calculating the OT hours", 
+			description: "<p>Hi DO teams,</p><p><br></p><p>Now system just simply calculate the OT as , 14 - 3 hours (3 hours is referring to the employee\'s scheduled break time) which is wrong and below is the sample scenario:</p><p><br></p><p>Employee working from 09:00 to 23:00 (OFF Day)</p><p>and took break on the following time:</p><p><span style=\"color: rgb(255, 0, 0);\">11:00 to 14:00</span></p><p><span style=\"color: rgb(255, 0, 0);\">17:00 to 19:00</span></p><p><br></p><p><span style=\"color: rgb(255, 0, 0);\">Total Break = 5 Hours</span></p><p><br></p><p>By right, the system should calculate the OT hours as per the following:</p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">09:00 to 23:00 = 14 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Break = 5 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Total OT = 14 -5&nbsp;= 9 Hours</strong></p><p><br></p><p>But currently the system calculated it as 11 Hours.</p><p><br></p><p><br></p><p>For the login credentials you may contact below Skype :</p><p><br></p><p><span style=\"color: rgb(0, 0, 0);\">live:wingyanfoong</span></p><p><br></p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "8", 
+			planStart: "08/27/2024", 
+			planEnd: "08/28/2024",
+			slaDesc: "Critical",
+			reportedDate: "08/26/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
+			photo: "62010211790.jpg",
+			reportedBy: "Helpdesk  KES",
+		};
+	
+		tiket["TCK2408-0954552"] = {
+			subject: "[W0001] Validasi grace time di flexible shift with limit", 
+			description: "<p>Dear Amri,</p><p><br></p><p>Minta tolong dicek di account w0001, untuk employee 30615 ketika melakukan clock time ada beberapa attendance record yang gagal diproses karena outside grace in, tetapi ada 1 record yang berhasil di proses. Shift employee tersebut adalah flexible shift with limit 07:30-08:30.</p><p><br></p><p>Mohon penjelasannya untuk case ini, bagaimana sistem mengkategorikan sebagai outside grace in untuk flexible shift with limit.</p><p><br></p><p>Credential PM skype.</p><p><br></p><p>Terima kasih.</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "12", 
+			planStart: "09/02/2024", 
+			planEnd: "09/04/2024",
+			slaDesc: "Major",
+			reportedDate: "08/19/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Faoziyati  Meiningsih",
+		};
+	
+		tiket["TCK2408-0958426"] = {
+			subject: "[ptamv] tidak muncul cutinya di add employee", 
+			description: "<p>tidak muncul cutinya di add employee</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "16", 
+			planStart: "08/29/2024", 
+			planEnd: "08/30/2024",
+			slaDesc: "Major",
+			reportedDate: "08/29/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Lusiana  ",
+		};
+	
+		tiket["TCK2408-0954627"] = {
+			subject: "[mmki] Overtime Index Tidak Sesuai", 
+			description: "<p>Dear Mas Amri,</p><p><br></p><p>Mohon bantuannya untuk mengecek case yang terjadi di account MMKI yaitu OT index pada tanggal 13 Juli 2024 atas nama karyawan Kusno (07925) mendapatkan OT index 55 padahal jika dihitung secara manual seharusnya hanya 19. Minta bantuannya juga ya mas, untuk mengecek data lain yang terindikasi case yang sama.</p><p><br></p><p>Terimakasih.</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "8", 
+			planStart: "09/06/2024", 
+			planEnd: "09/06/2024",
+			slaDesc: "Major",
+			reportedDate: "08/19/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Rahmita  Ramadhanty",
+		};
+	
+		tiket["TCK2406-0935121"] = {
+			subject: "[tpg] Data overtime request tidak masuk ke attendance", 
+			description: "<p>Siang, mau tanya</p><p>Ada case di tpg, dimana saat employee request overtime, ada yg overtime request nya gak masuk ke attendance</p><p><br></p><p>Detail ovtime:&nbsp;</p><p>Overtime Request dan nama-tanggal yg tdk masuk ke data attendance: </p><ul><li>OVR-202406-001068 (Sugiarto 31 May 2024 - 1 Juni 2024), </li><li>OVR-202406-001071 (SUJIANTO 31 May 2024)</li></ul><p><br></p><p>Namun ada yg data overtime request tadinya tidak masuk, namun setelah disubmit via att edit jadi masuk overtimenya. Contohnya data berikut :&nbsp;</p><ul><li> Sutarko 31 May 2024 dengan ovt request OVR-202406-001070</li></ul><p><br></p><p>Apakah boleh bantu cek? Karena klien gak mau submit data attendance list one by one</p><p>Untuk credential, akan dijapri&nbsp;</p><p>Terima kasih</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "8", 
+			planStart: "09/06/2024", 
+			planEnd: "09/06/2024",
+			slaDesc: "Critical",
+			reportedDate: "06/18/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Alexander Mario Gracias",
+		};
+	
+		tiket["TCK2408-0956727"] = {
+			subject: "w0001 : TG please check why employee clock out before shift end time not show EAO and UNPR", 
+			description: "<p>Dear Amri,</p><p>i\'ve tested an employee request first half day leave on flexible shift with limit time 07.30 - 08.30 and productivity is 480 mins , the system show shift time 08.30-17.30&nbsp;then I add time in out&nbsp;10.00 -16.00 the system not show EAO because shift end time is 17.30 and this employee out 16.00 , it should show UNPR and EAO but the system not show then I change time form 10.00 to 10.01 and end time still 16.00 , it\'s show EAO and UNPR</p><p>&nbsp;</p><p>please check why employee clock out before shift end time not show EAO and UNPR</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "12", 
+			planStart: "08/29/2024", 
+			planEnd: "09/02/2024",
+			slaDesc: "Major",
+			reportedDate: "08/25/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SF7HR",
+			projectName: "SFWorkplaze HR",
+			photo: "62010211790.jpg",
+			reportedBy: "Pimpaka  THT",
+		};
+	
+		tiket["TCK2408-0958143"] = {
+			subject: "[DICPH] NON-HOLIDAY DATE IS TAGGED AS PHWD", 
+			description: "<p>Good day team,</p><p><br></p><p>I hope this message finds you well. I am reaching out to request your assistance with an issue we are experiencing. On August 27, this date was tagged as a holiday. The holiday tag was deleted, and a shift upload was performed to change the day type from a holiday. However, the date is still showing as <strong>PHWD</strong> (Public Holiday Worked Day) instead of <strong>WD</strong> (Working Day).</p><p><br></p><p>Could you please help correct this for the employees affected? Attached is the attendance report for employees who have August 27 tagged as PHWD.</p><p><br></p><p>Thank you for your support and prompt attention to this matter.</p><p><br></p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "8", 
+			planStart: "08/29/2024", 
+			planEnd: "08/29/2024",
+			slaDesc: "Critical",
+			reportedDate: "08/29/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "GDHRPRO",
+			projectName: "GreatDay Pro",
+			photo: "62010211790.jpg",
+			reportedBy: "M Serrano  DO.PH",
+		};
+	
+		tiket["TCK2408-0957858"] = {
+			subject: "[MY][BKIMD]Shift Scheduler Screen displayed wrong date", 
+			description: "<p>Hi Jimmy,</p><p><br></p><p>employee ID:SW1880</p><p>Leave request had been approval for the MC.</p><p>in shift scheduler screen displayed to wrong date.</p><p>shift scheduler report not issue.</p><p><br></p><p>live:gamekings</p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "3",
+			hour: "16", 
+			planStart: "08/28/2024", 
+			planEnd: "09/02/2024",
+			slaDesc: "Minor",
+			reportedDate: "08/28/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
+			photo: "62010211790.jpg",
+			reportedBy: "Lim Choon Tat  KES",
+		};
+	
+		tiket["TCK2408-0955191"] = {
+			subject: "[cpginc] Overtime Request Report_error", 
+			description: "<p>Hi Jimmy, seeking your immediate assistance on this matter. The client cannot extract a overtime request report. The result was \"No data\". I already raised this to you last July 26 thru skype. Kindly check this again as the client needed the report. </p>", 
+			assignee_name: "Syaeful  Amri",
+			status: "2",
+			hour: "12", 
+			planStart: "08/26/2024", 
+			planEnd: "08/28/2024",
+			slaDesc: "Major",
+			reportedDate: "08/20/2024",
+			encDesc: "-",
+			releaseDate: "-",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
+			photo: "62010211790.jpg",
+			reportedBy: "Magbanua  HCX",
+		};
+	
+
+var tStatus = [];
+tStatus[1] = "Open";
+tStatus[2] = "Fixed";
+tStatus[3] = "Responded";
+tStatus[4] = "Closed";
+tStatus[5] = "Reopen";
+tStatus[6] = "Cancelled";
+
+function strip(html){
+   let doc = new DOMParser().parseFromString(html, 'text/html');
+   return doc.body.textContent || "";
+}
+
+function loadTicket(btn) {
+	let m = document.getElementById("modal-1-content");
+	while (m.firstChild) {
+		m.removeChild(m.firstChild);
+	}
+	let ul = document.createElement("UL");
+	
+	let t = btn.getAttribute("data-ticket");
+	if (t) {
+		a = t.split(",");
+		for (i=0; i<a.length; i++) {
+			li = document.createElement("LI");
+			title = document.createElement("H4");
+			link = document.createElement("a");
+			linkText = document.createTextNode(a[i]);
+			link.setAttribute('href', "https://sfsupport.dataon.com/app/ticket/forms/" + a[i]);
+			link.setAttribute('target', '_blank');
+			link.appendChild(linkText);
+			title.appendChild(link);
+			
+			titleText = " (" + tStatus[tiket[a[i]].status] + ") - [ " + tiket[a[i]].planStart + " - " + tiket[a[i]].planEnd + " ]";
+			titleText += " - " + tiket[a[i]].hour + "hrs";
+			title.appendChild(document.createTextNode(titleText));
+			li.appendChild(title);
+			if (tiket[a[i]]) {
+				console.log(tiket[a[i]], "test data");
+				projectid = document.createElement("P");
+				projectid.appendChild(document.createTextNode("Project : [" + tiket[a[i]].projectid + "] " + tiket[a[i]].projectName));
+				li.appendChild(projectid);
+				subject = document.createElement("P");
+				subject.appendChild(document.createTextNode("Subject : " + tiket[a[i]].subject));
+				li.appendChild(subject);
+				desc = document.createElement("P");
+				desc.appendChild(document.createTextNode("Description : " + strip(tiket[a[i]].description)));
+				li.appendChild(desc);
+				assignee_name = document.createElement("P");
+				assignee_name.appendChild(document.createTextNode("Assignee Name : " + tiket[a[i]].assignee_name));
+				li.appendChild(assignee_name);
+
+				
+				
+				image = document.createElement('img');
+				// image.style='max-width:250px;'
+				// image.style='max-height:250px;'
+
+				image.setAttribute(
+					'style',
+					'max-width:150px;max-height:200px;',
+				);
+
+            	image.src = 'https://sfsupport.dataon.com/api/Attachments/profilePictures/download/'+tiket[a[i]].photo;
+				// image.style='max-width:50px;'
+
+				// li.appendChild(image);
+
+				table = document.createElement("table");
+				// table.style='max-width:370px;'
+
+				table.setAttribute(
+					'style',
+					'width:500px; background-color:white;',
+				);
+
+
+				tr = document.createElement("tr");
+				td1 = document.createElement("td");
+				td2 = document.createElement("td");
+				// td2.style='max-width:170px;'
+				// td2.style='backgroud-color:white;'
+
+				td1.setAttribute(
+					'style',
+					'max-width:150px; background-color:white;',
+				);
+				
+				td2.setAttribute(
+					'style',
+					'width:250px; background-color:white; padding-left:10px',
+				);
+
+				td1.appendChild(image);
+
+				slaDesc = document.createElement("P");
+				slaDesc.appendChild(document.createTextNode("SLA : " + tiket[a[i]].slaDesc));
+				td2.appendChild(slaDesc);
+				reportedDate = document.createElement("P");
+				reportedDate.appendChild(document.createTextNode("Reported Date : " + tiket[a[i]].reportedDate));
+				td2.appendChild(reportedDate);
+				reportedBy = document.createElement("P");
+				reportedBy.appendChild(document.createTextNode("Reported By : " + tiket[a[i]].reportedBy));
+				td2.appendChild(reportedBy);
+				encDesc = document.createElement("P");
+				encDesc.appendChild(document.createTextNode("ENC : " + tiket[a[i]].encDesc));
+				td2.appendChild(encDesc);
+				releaseDate = document.createElement("P");
+				releaseDate.appendChild(document.createTextNode("Target Release Date : " + tiket[a[i]].releaseDate));
+				td2.appendChild(releaseDate);
+
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+
+				table.appendChild(tr);
+
+				li.appendChild(table);
+			
+			/*	document.getElementById('body').appendChild(img);
+
+
+				<img class="tippyimg" src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#" 
+			data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#' style='max-width:100px;'>"
+			style="max-width:30px;">
+				*/
+				
+				// li.appendChild(document.createTextNode("Assignee : " + tiket[a[i]].assignee_name));
+			}
+			ul.appendChild(li);
+		}
+	}
+	m.appendChild(ul);
+}
+</script>
+
+
+
