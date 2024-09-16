@@ -8,20 +8,16 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"regexp"
 
 	// "os"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gocolly/colly"
 )
 
 // initialize a data structure to keep the scraped data
-type Product struct {
-	Url, Image, Name, Price string
-}
-
 type DataTask struct {
-	subject, description, assignee_name, status string
+	Subject, Description, AssigneeName, Status string
 }
 
 func main() {
@@ -48,23 +44,41 @@ func main() {
 	})
 
 	// triggered when a CSS selector matches an element
-	c.OnHTML("body script:last-child", func(e *colly.HTMLElement) {
+	c.OnHTML("body>script:last-child", func(e *colly.HTMLElement) {
 		// printing all URLs associated with the <a> tag on the page
 		// initialize a new Product instance
-		s := e.DOM.Find("script").Text()
+		s := e.DOM.Text()
+		re := regexp.MustCompile(`[\n\t]+`)
+		formattedString := re.ReplaceAllString(s, "")
 
-		// spew.Dump(s)
+		// with a word with regex
+		reTCK := regexp.MustCompile(`tiket\["(TCK[0-9]{4}-[0-9]{7})"\]`)
+		matchesTCK := reTCK.FindAllStringSubmatch(formattedString, -1)
 
-		dataTask := DataTask{}
-		dataTask.description = s
-		// add the product instance with scraped data to the list of products
-		dataTasks = append(dataTasks, dataTask)
-		spew.Dump(dataTasks)
+		// spew.Dump(matchesTCK)
+
+		if matchesTCK == nil {
+			fmt.Println("No matches found.")
+			return
+		}
+
+		for _, dataTCK := range matchesTCK {
+			// fmt.Println("Found ticket ID:", match[1])
+			dataTask := DataTask{}
+			dataTask.Subject = dataTCK[1]
+			dataTask.Description = "testing2"
+			dataTask.AssigneeName = "Syaeful Amri"
+			dataTask.Status = "Syaeful Amri"
+			// add the product instance with scraped data to the list of products
+			dataTasks = append(dataTasks, dataTask)
+		}
+
 	})
 
 	// triggered once scraping is done (e.g., write the data to a CSV file)
 	c.OnScraped(func(r *colly.Response) {
 		// Convert the slice to JSON and write to a file
+		// spew.Dump(dataTasks)
 		if err := writeToJSONFile(dataTasks, "dataTasks.json"); err != nil {
 			fmt.Println("Error:", err)
 		} else {
@@ -115,21 +129,21 @@ func writeToCSVFile(data interface{}, filename string) error {
 
 	// write the CSV headers
 	headers := []string{
-		"Url",
-		"Image",
-		"Name",
-		"Price",
+		"Subject",
+		"Description",
+		"AssigneeName",
+		"Status",
 	}
 	writer.Write(headers)
 
 	// write each product as a CSV row
-	for _, product := range data.([]Product) {
+	for _, dataTask := range data.([]DataTask) {
 		// convert a Product to an array of strings
 		record := []string{
-			product.Url,
-			product.Image,
-			product.Name,
-			product.Price,
+			dataTask.Subject,
+			dataTask.Description,
+			dataTask.AssigneeName,
+			dataTask.Status,
 		}
 
 		// add a CSV record to the output file
