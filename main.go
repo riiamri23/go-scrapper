@@ -12,12 +12,13 @@ import (
 
 	// "os"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gocolly/colly"
 )
 
 // initialize a data structure to keep the scraped data
 type DataTask struct {
-	Subject, Description, AssigneeName, Status string
+	Ticket, Subject, Description, AssigneeName, Status, Hour, PlanStart, PlanEnd, SlaDesc, ReportedDate, EncDesc, ReleaseDate, ProjectId, ProjectName, ReportedBy string
 }
 
 func main() {
@@ -52,8 +53,8 @@ func main() {
 		formattedString := re.ReplaceAllString(s, "")
 
 		// with a word with regex
-		reTCK := regexp.MustCompile(`tiket\["(TCK[0-9]{4}-[0-9]{7})"\]`)
-		matchesTCK := reTCK.FindAllStringSubmatch(formattedString, -1)
+		reTCK := regexp.MustCompile(`tiket\["([^"]+)"\]\s*=\s*{([^}]*)}`)
+		matchesTCK := reTCK.FindAllString(formattedString, -1)
 
 		// spew.Dump(matchesTCK)
 
@@ -61,14 +62,55 @@ func main() {
 			fmt.Println("No matches found.")
 			return
 		}
+		spew.Dump(matchesTCK)
 
 		for _, dataTCK := range matchesTCK {
-			// fmt.Println("Found ticket ID:", match[1])
 			dataTask := DataTask{}
-			dataTask.Subject = dataTCK[1]
-			dataTask.Description = "testing2"
-			dataTask.AssigneeName = "Syaeful Amri"
-			dataTask.Status = "Syaeful Amri"
+
+			// find the regex specific data for ticket
+			reTicket := regexp.MustCompile(`tiket\["(TCK[0-9]{4}-[0-9]{7})"\]`)
+			matchTicket := reTicket.FindStringSubmatch(dataTCK)
+			if matchTicket == nil {
+				dataTask.Ticket = ""
+			} else {
+				dataTask.Ticket = matchTicket[1]
+			}
+
+			// find the regex specific data for subject
+			reSubject := regexp.MustCompile(`subject:\s*"([^"]+)"`)
+			matchSubject := reSubject.FindStringSubmatch(dataTCK)
+			if matchSubject == nil {
+				dataTask.Subject = ""
+			} else {
+				dataTask.Subject = matchSubject[1]
+			}
+
+			// find the regex specific data for description
+			reDescription := regexp.MustCompile(`description:\s*"([^"]+)"`)
+			matchDescription := reDescription.FindStringSubmatch(dataTCK)
+			if matchSubject == nil {
+				dataTask.Description = ""
+			} else {
+				dataTask.Description = matchDescription[1]
+			}
+
+			// find the regex specific data for assignee name
+			reAssigneeName := regexp.MustCompile(`assignee_name:\s*"([^"]+)"`)
+			matchAssigneeName := reAssigneeName.FindStringSubmatch(dataTCK)
+			if matchAssigneeName == nil {
+				dataTask.AssigneeName = ""
+			} else {
+				dataTask.AssigneeName = matchAssigneeName[1]
+			}
+
+			// find the regex specific data for status
+			reStatus := regexp.MustCompile(`status:\s*"([^"]+)"`)
+			matchStatus := reStatus.FindStringSubmatch(dataTCK)
+			if matchStatus == nil {
+				dataTask.Status = ""
+			} else {
+				dataTask.Status = matchStatus[1]
+			}
 			// add the product instance with scraped data to the list of products
 			dataTasks = append(dataTasks, dataTask)
 		}
