@@ -1,1175 +1,1404 @@
+<html>
 
-<style>
-html, body {
-	font-family: sans-serif;
-}
-form div {
-	display: inline-block;
-	margin-right: 1rem;
-}
-tr {background-color: #F5F5F5;}
-.fontred {color: #FF0000;}
-.bgred {background-color: #FCD5B4;}
-.bgoff {background-color: #FBCFD0;}
-.bgtoday {background-color: #0000FF;color: #FFFFFF;}
+<head>
+	<style type="text/css" data-tippy-stylesheet="">
+		.tippy-iOS {
+			cursor: pointer !important;
+			-webkit-tap-highlight-color: transparent
+		}
 
-.bgsts1 {background-color: #EA4335; text-align: center;}
-.bgsts2 {background-color: #34A853; text-align: center;}
-.bgsts3 {background-color: #FBBC05; text-align: center;}
-.bgsts4 {background-color: #4285F4; text-align: center;}
-.bgsts5 {background-color: #EA4335; text-align: center;}
-.bgstsend {border-right: 2px solid #777;}
-.greyfont {color: #BBBBBB;}
-.inline-form div {
-	display: inline-block;
-	margin-right: 1rem;
-	font-size: 0.8rem;
-}
-.btn-link {
-	border: 0px;
-	background-color: rgba(255,255,255,0);
-}
-</style>
+		.tippy-popper {
+			transition-timing-function: cubic-bezier(.165, .84, .44, 1);
+			max-width: calc(100% - 8px);
+			pointer-events: none;
+			outline: 0
+		}
 
-<script>
-function popup(theurl,popname) {
-	window.open(theurl,popname,'width=1000,height=600,scrollbars=yes,status=yes')
-}
-</script>
-<script src="assets/js/micromodal.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/tippy.min.js"></script>
-<link rel='stylesheet' href='assets/css/light.css' type='text/css' media='all' />
+		.tippy-popper[x-placement^=top] .tippy-backdrop {
+			border-radius: 40% 40% 0 0
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-roundarrow {
+			bottom: -7px;
+			bottom: -6.5px;
+			-webkit-transform-origin: 50% 0;
+			transform-origin: 50% 0;
+			margin: 0 3px
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-roundarrow svg {
+			position: absolute;
+			left: 0;
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg)
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-arrow {
+			border-top: 8px solid #333;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
+			bottom: -7px;
+			margin: 0 3px;
+			-webkit-transform-origin: 50% 0;
+			transform-origin: 50% 0
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-backdrop {
+			-webkit-transform-origin: 0 25%;
+			transform-origin: 0 25%
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=visible] {
+			-webkit-transform: scale(1) translate(-50%, -55%);
+			transform: scale(1) translate(-50%, -55%)
+		}
+
+		.tippy-popper[x-placement^=top] .tippy-backdrop[data-state=hidden] {
+			-webkit-transform: scale(.2) translate(-50%, -45%);
+			transform: scale(.2) translate(-50%, -45%);
+			opacity: 0
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=visible] {
+			-webkit-transform: translateY(-10px);
+			transform: translateY(-10px)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=shift-toward][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(-20px);
+			transform: translateY(-20px)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=perspective] {
+			-webkit-transform-origin: bottom;
+			transform-origin: bottom
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=visible] {
+			-webkit-transform: perspective(700px) translateY(-10px) rotateX(0);
+			transform: perspective(700px) translateY(-10px) rotateX(0)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=perspective][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: perspective(700px) translateY(0) rotateX(60deg);
+			transform: perspective(700px) translateY(0) rotateX(60deg)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=fade][data-state=visible] {
+			-webkit-transform: translateY(-10px);
+			transform: translateY(-10px)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=fade][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(-10px);
+			transform: translateY(-10px)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=visible] {
+			-webkit-transform: translateY(-10px);
+			transform: translateY(-10px)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=shift-away][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(0);
+			transform: translateY(0)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=scale] {
+			-webkit-transform-origin: bottom;
+			transform-origin: bottom
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=scale][data-state=visible] {
+			-webkit-transform: translateY(-10px) scale(1);
+			transform: translateY(-10px) scale(1)
+		}
+
+		.tippy-popper[x-placement^=top] [data-animation=scale][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(-10px) scale(.5);
+			transform: translateY(-10px) scale(.5)
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-backdrop {
+			border-radius: 0 0 30% 30%
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-roundarrow {
+			top: -7px;
+			-webkit-transform-origin: 50% 100%;
+			transform-origin: 50% 100%;
+			margin: 0 3px
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-roundarrow svg {
+			position: absolute;
+			left: 0;
+			-webkit-transform: rotate(0);
+			transform: rotate(0)
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-arrow {
+			border-bottom: 8px solid #333;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
+			top: -7px;
+			margin: 0 3px;
+			-webkit-transform-origin: 50% 100%;
+			transform-origin: 50% 100%
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-backdrop {
+			-webkit-transform-origin: 0 -50%;
+			transform-origin: 0 -50%
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=visible] {
+			-webkit-transform: scale(1) translate(-50%, -45%);
+			transform: scale(1) translate(-50%, -45%)
+		}
+
+		.tippy-popper[x-placement^=bottom] .tippy-backdrop[data-state=hidden] {
+			-webkit-transform: scale(.2) translate(-50%);
+			transform: scale(.2) translate(-50%);
+			opacity: 0
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=visible] {
+			-webkit-transform: translateY(10px);
+			transform: translateY(10px)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=shift-toward][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(20px);
+			transform: translateY(20px)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=perspective] {
+			-webkit-transform-origin: top;
+			transform-origin: top
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=visible] {
+			-webkit-transform: perspective(700px) translateY(10px) rotateX(0);
+			transform: perspective(700px) translateY(10px) rotateX(0)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=perspective][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: perspective(700px) translateY(0) rotateX(-60deg);
+			transform: perspective(700px) translateY(0) rotateX(-60deg)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=visible] {
+			-webkit-transform: translateY(10px);
+			transform: translateY(10px)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=fade][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(10px);
+			transform: translateY(10px)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=visible] {
+			-webkit-transform: translateY(10px);
+			transform: translateY(10px)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=shift-away][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(0);
+			transform: translateY(0)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=scale] {
+			-webkit-transform-origin: top;
+			transform-origin: top
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=visible] {
+			-webkit-transform: translateY(10px) scale(1);
+			transform: translateY(10px) scale(1)
+		}
+
+		.tippy-popper[x-placement^=bottom] [data-animation=scale][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateY(10px) scale(.5);
+			transform: translateY(10px) scale(.5)
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-backdrop {
+			border-radius: 50% 0 0 50%
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-roundarrow {
+			right: -12px;
+			-webkit-transform-origin: 33.33333333% 50%;
+			transform-origin: 33.33333333% 50%;
+			margin: 3px 0
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-roundarrow svg {
+			position: absolute;
+			left: 0;
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg)
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-arrow {
+			border-left: 8px solid #333;
+			border-top: 8px solid transparent;
+			border-bottom: 8px solid transparent;
+			right: -7px;
+			margin: 3px 0;
+			-webkit-transform-origin: 0 50%;
+			transform-origin: 0 50%
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-backdrop {
+			-webkit-transform-origin: 50% 0;
+			transform-origin: 50% 0
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=visible] {
+			-webkit-transform: scale(1) translate(-50%, -50%);
+			transform: scale(1) translate(-50%, -50%)
+		}
+
+		.tippy-popper[x-placement^=left] .tippy-backdrop[data-state=hidden] {
+			-webkit-transform: scale(.2) translate(-75%, -50%);
+			transform: scale(.2) translate(-75%, -50%);
+			opacity: 0
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=visible] {
+			-webkit-transform: translateX(-10px);
+			transform: translateX(-10px)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=shift-toward][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(-20px);
+			transform: translateX(-20px)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=perspective] {
+			-webkit-transform-origin: right;
+			transform-origin: right
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=visible] {
+			-webkit-transform: perspective(700px) translateX(-10px) rotateY(0);
+			transform: perspective(700px) translateX(-10px) rotateY(0)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=perspective][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: perspective(700px) translateX(0) rotateY(-60deg);
+			transform: perspective(700px) translateX(0) rotateY(-60deg)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=fade][data-state=visible] {
+			-webkit-transform: translateX(-10px);
+			transform: translateX(-10px)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=fade][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(-10px);
+			transform: translateX(-10px)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=visible] {
+			-webkit-transform: translateX(-10px);
+			transform: translateX(-10px)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=shift-away][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=scale] {
+			-webkit-transform-origin: right;
+			transform-origin: right
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=scale][data-state=visible] {
+			-webkit-transform: translateX(-10px) scale(1);
+			transform: translateX(-10px) scale(1)
+		}
+
+		.tippy-popper[x-placement^=left] [data-animation=scale][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(-10px) scale(.5);
+			transform: translateX(-10px) scale(.5)
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-backdrop {
+			border-radius: 0 50% 50% 0
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-roundarrow {
+			left: -12px;
+			-webkit-transform-origin: 66.66666666% 50%;
+			transform-origin: 66.66666666% 50%;
+			margin: 3px 0
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-roundarrow svg {
+			position: absolute;
+			left: 0;
+			-webkit-transform: rotate(-90deg);
+			transform: rotate(-90deg)
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-arrow {
+			border-right: 8px solid #333;
+			border-top: 8px solid transparent;
+			border-bottom: 8px solid transparent;
+			left: -7px;
+			margin: 3px 0;
+			-webkit-transform-origin: 100% 50%;
+			transform-origin: 100% 50%
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-backdrop {
+			-webkit-transform-origin: -50% 0;
+			transform-origin: -50% 0
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=visible] {
+			-webkit-transform: scale(1) translate(-50%, -50%);
+			transform: scale(1) translate(-50%, -50%)
+		}
+
+		.tippy-popper[x-placement^=right] .tippy-backdrop[data-state=hidden] {
+			-webkit-transform: scale(.2) translate(-25%, -50%);
+			transform: scale(.2) translate(-25%, -50%);
+			opacity: 0
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=visible] {
+			-webkit-transform: translateX(10px);
+			transform: translateX(10px)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=shift-toward][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(20px);
+			transform: translateX(20px)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=perspective] {
+			-webkit-transform-origin: left;
+			transform-origin: left
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=visible] {
+			-webkit-transform: perspective(700px) translateX(10px) rotateY(0);
+			transform: perspective(700px) translateX(10px) rotateY(0)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=perspective][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: perspective(700px) translateX(0) rotateY(60deg);
+			transform: perspective(700px) translateX(0) rotateY(60deg)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=fade][data-state=visible] {
+			-webkit-transform: translateX(10px);
+			transform: translateX(10px)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=fade][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(10px);
+			transform: translateX(10px)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=visible] {
+			-webkit-transform: translateX(10px);
+			transform: translateX(10px)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=shift-away][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=scale] {
+			-webkit-transform-origin: left;
+			transform-origin: left
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=scale][data-state=visible] {
+			-webkit-transform: translateX(10px) scale(1);
+			transform: translateX(10px) scale(1)
+		}
+
+		.tippy-popper[x-placement^=right] [data-animation=scale][data-state=hidden] {
+			opacity: 0;
+			-webkit-transform: translateX(10px) scale(.5);
+			transform: translateX(10px) scale(.5)
+		}
+
+		.tippy-tooltip {
+			position: relative;
+			color: #fff;
+			border-radius: .25rem;
+			font-size: .875rem;
+			padding: .3125rem .5625rem;
+			line-height: 1.4;
+			text-align: center;
+			background-color: #333
+		}
+
+		.tippy-tooltip[data-size=small] {
+			padding: .1875rem .375rem;
+			font-size: .75rem
+		}
+
+		.tippy-tooltip[data-size=large] {
+			padding: .375rem .75rem;
+			font-size: 1rem
+		}
+
+		.tippy-tooltip[data-animatefill] {
+			overflow: hidden;
+			background-color: transparent
+		}
+
+		.tippy-tooltip[data-interactive],
+		.tippy-tooltip[data-interactive] .tippy-roundarrow path {
+			pointer-events: auto
+		}
+
+		.tippy-tooltip[data-inertia][data-state=visible] {
+			transition-timing-function: cubic-bezier(.54, 1.5, .38, 1.11)
+		}
+
+		.tippy-tooltip[data-inertia][data-state=hidden] {
+			transition-timing-function: ease
+		}
+
+		.tippy-arrow,
+		.tippy-roundarrow {
+			position: absolute;
+			width: 0;
+			height: 0
+		}
+
+		.tippy-roundarrow {
+			width: 18px;
+			height: 7px;
+			fill: #333;
+			pointer-events: none
+		}
+
+		.tippy-backdrop {
+			position: absolute;
+			background-color: #333;
+			border-radius: 50%;
+			width: calc(110% + 2rem);
+			left: 50%;
+			top: 50%;
+			z-index: -1;
+			transition: all cubic-bezier(.46, .1, .52, .98);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden
+		}
+
+		.tippy-backdrop:after {
+			content: "";
+			float: left;
+			padding-top: 100%
+		}
+
+		.tippy-backdrop+.tippy-content {
+			transition-property: opacity;
+			will-change: opacity
+		}
+
+		.tippy-backdrop+.tippy-content[data-state=visible] {
+			opacity: 1
+		}
+
+		.tippy-backdrop+.tippy-content[data-state=hidden] {
+			opacity: 0
+		}
+	</style>
+	<style>
+		html,
+		body {
+			font-family: sans-serif;
+		}
+
+		form div {
+			display: inline-block;
+			margin-right: 1rem;
+		}
+
+		tr {
+			background-color: #F5F5F5;
+		}
+
+		.fontred {
+			color: #FF0000;
+		}
+
+		.bgred {
+			background-color: #FCD5B4;
+		}
+
+		.bgoff {
+			background-color: #FBCFD0;
+		}
+
+		.bgtoday {
+			background-color: #0000FF;
+			color: #FFFFFF;
+		}
+
+		.bgsts1 {
+			background-color: #EA4335;
+			text-align: center;
+		}
+
+		.bgsts2 {
+			background-color: #34A853;
+			text-align: center;
+		}
+
+		.bgsts3 {
+			background-color: #FBBC05;
+			text-align: center;
+		}
+
+		.bgsts4 {
+			background-color: #4285F4;
+			text-align: center;
+		}
+
+		.bgsts5 {
+			background-color: #EA4335;
+			text-align: center;
+		}
+
+		.bgstsend {
+			border-right: 2px solid #777;
+		}
+
+		.greyfont {
+			color: #BBBBBB;
+		}
+
+		.inline-form div {
+			display: inline-block;
+			margin-right: 1rem;
+			font-size: 0.8rem;
+		}
+
+		.btn-link {
+			border: 0px;
+			background-color: rgba(255, 255, 255, 0);
+		}
+	</style>
+
+	<script>
+		function popup(theurl, popname) {
+			window.open(theurl, popname, 'width=1000,height=600,scrollbars=yes,status=yes')
+		}
+	</script>
+	<script src="assets/js/micromodal.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/tippy.min.js"></script>
+	<link rel="stylesheet" href="assets/css/light.css" type="text/css" media="all">
 
 
 
 
-<form name="frm1" class="inline-form" action="" method="post">
-<div> 
-		<style>
-		.hamburger {padding: 0px; background-color: #ffffff; margin-right: 0px; border:0px; max-width: 25px;}
-		.b {width: 20px; height: 2px; background-color: #000000; margin-bottom: 2px; margin-left: 0px; display: block !important;}
-		.nav {position: fixed; z-index:1000; border: 1px solid #000000; background-color: #ffffff; padding: 1rem;}
-		.ulNav {margin: 0px; padding: 0px;}
-		</style>
-		<button type="button" class="hamburger" onclick="toggleNav();">
-			<div class="b"></div>
-			<div class="b"></div>
-			<div class="b"></div>
-		</button>
-		<div class="nav" id="mainNav" style="display:none;" onClick="toggleNav();">
-			<ul class="ulNav">
-				<li><a href="devtimelinereport.cfm">Timeline Report</a></li>
-				<li><a href="resourceusage.cfm">Resource Usage</a></li>
-				<li><a href="devtimelinebydeveloper.cfm">Developer Timeline</a></li>
-			</ul>
-		</div>
-		<script>
-			function toggleNav() {
-				let n = document.getElementById("mainNav");
-				if (n.style.display=="none") {n.style.display="block";} else {n.style.display="none";}
+	<style type="text/css">
+		.src-service-contentScript-browser-contentScript-contentScript__toolFrame--2uksu {
+			position: fixed !important;
+			right: 0 !important;
+			top: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			z-index: 2147483646 !important;
+			border: none !important;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh {
+			position: fixed;
+			right: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2147483646;
+			border: none;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading {
+			position: fixed;
+			right: 10px;
+			top: 10px;
+			box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 12px 0px;
+			background: white;
+			width: 324px;
+			height: 150px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading .line {
+			animation: src-service-contentScript-browser-contentScript-contentScript__expand--31ZFO 1s ease-in-out infinite;
+			border-radius: 10px;
+			display: inline-block;
+			transform-origin: center center;
+			margin: 0 3px;
+			width: 1px;
+			height: 25px;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading .line:nth-child(1) {
+			background: #27ae60;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading .line:nth-child(2) {
+			animation-delay: 180ms;
+			background: #f1c40f;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading .line:nth-child(3) {
+			animation-delay: 360ms;
+			background: #e67e22;
+		}
+
+		.src-service-contentScript-browser-contentScript-contentScript__web-clipper-loading-box--fHTwh .web-clipper-loading .line:nth-child(4) {
+			animation-delay: 540ms;
+			background: #2980b9;
+		}
+
+		@keyframes src-service-contentScript-browser-contentScript-contentScript__expand--31ZFO {
+			0% {
+				transform: scale(1);
 			}
-		</script>
-	</div>
-<div>
-	<label>Department</label>
-	<select name="dept"  onchange="document.frm1.submit();">
-	<option value="BENEFITS" >BENEFITS</option><option value="DEVSECOPS" >DEVSECOPS</option><option value="ERP" >ERP</option><option value="HR" selected>HR</option><option value="IMP-AT" >IMP-AT</option><option value="IMP-FP" >IMP-FP</option><option value="IMP-YO" >IMP-YO</option><option value="QA" >QA</option><option value="SM-HR5" >SM-HR5</option><option value="SPECIAL" >SPECIAL</option><option value="TECH" >TECH</option>
-	</select>
-	<a href="team.cfm?department=HR" target="_blank">Edit</a>
-</div>
-<div>
-	<label>PLAN DATE:</label>
-	<input type="date" name="txtStartDate" value="2024-08-28" size="10" maxlength="10"> - 
-	<input type="date" name="txtEndDate" value="2024-09-14" size="10" maxlength="10">
-</div>
-<div>
-<label>DEV:</label>
-<select name="selEmp" onchange="frm1.submit()">
-	<option value="0">--Select--
-	
-	<option value="33379" >Anastasya  Carlita 
-	<option value="33511" >Andry  
-	<option value="39007" >Famil Restu Pambudi Yusuf 
-	<option value="33495" >Jimmy  Halim 
-	<option value="39010" >Kristian Tjandradiredja 
-	<option value="33660" >Maghdalena Septhy Prihatiningsih 
-	<option value="41360" >Nanda  Firmansyah 
-	<option value="33432" >Nur Diana. S 
-	<option value="33571" >Rangga  Rahmadi 
-	<option value="33544" >Regizla O. Huwae 
-	<option value="33729" >Ricky  
-	<option value="33744" >Rizki  Syaifullah 
-	<option value="40237" >Shofan  Amirudin 
-	<option value="1" >---------------------------------------- 
-	<option value="42675" >Ade Firman Ardiansyah 
-	<option value="42643" >Adven Adam Khasbialloh 
-	<option value="38824" >Afriya  Safitrie 
-	<option value="40774" >Ahmad  Banyu  Rachman 
-	<option value="43139" >Ali  Susanto 
-	<option value="42897" >Altundri Wahyu Hidayatullah 
-	<option value="38948" >Alvin Indra Cahya 
-	<option value="43780" >Arif Widiasan Subagio 
-	<option value="37069" >Daniel Adi Wijaya 
-	<option value="43889" >Dilivio Cullen L Tilaar 
-	<option value="43141" >Dini  Mustika 
-	<option value="40363" >Erlina  
-	<option value="43096" >Ermadani Dyah Rachmawati 
-	<option value="40042" >Fadlan  Wildan 
-	<option value="39505" >Faissy Gratty Jenifer Ratu 
-	<option value="43781" >Farrell Adra Khalfani 
-	<option value="39015" >Ferdian R Saputra 
-	<option value="38798" >Indah Ainur Rahma 
-	<option value="43284" >Indra  Septian Heru Sasongko 
-	<option value="42978" >Jufrensius Antony Barasa 
-	<option value="42290" >Mohamad Rizal Khamami 
-	<option value="41447" >Mohammad Taufiqurrahman Farhansyah Putra 
-	<option value="39875" >Muhammad  Hidayatullah 
-	<option value="42190" >Muhammad Banyu Mubarok 
-	<option value="41187" >Muhammad Irfan Bisyr 
-	<option value="43617" >Muhammad Nur Ichsan 
-	<option value="43839" >Nathaniel Dwiputra  Kuantama 
-	<option value="42981" >Ningsih  Adityas 
-	<option value="43784" >Oky  Trilupito 
-	<option value="42294" >Restu Averian Putra 
-	<option value="43613" >Rizki Dharmawan Pohan 
-	<option value="43252" >Salman Said Ramadhan 
-	<option value="43302" >Stevano Titondea Prayoga Putra 
-	<option value="41265" selected>Syaeful  Amri 
-	<option value="39480" >Syaifullah  
-	<option value="42373" >Vincent  Handoko 
-	<option value="40720" >Yehezkiel  Wijaya 
-	<option value="88" >*ALL*
-</select>
-</div>
-<div>
-<input type="checkbox" name="chkincludeteam"  onclick="frm1.submit()">include team members
-</div>
+
+			25% {
+				transform: scale(2);
+			}
+		}
+	</style>
+	<style type="text/css">
+		#index_crossLine__2WHMH {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			z-index: 2147483645;
+		}
+
+		#index_crossLine__2WHMH::before {
+			border: none;
+			content: '';
+			height: 100%;
+			position: absolute;
+			width: 100%;
+			z-index: 2147483645;
+			border-right: 1px solid red;
+			border-bottom: 1px solid red;
+			left: -100%;
+			top: -100%;
+		}
+
+		#index_crossLine__2WHMH::after {
+			border: none;
+			content: '';
+			height: 100%;
+			position: absolute;
+			width: 100%;
+			z-index: 2147483645;
+			border-top: 1px solid red;
+			border-left: 1px solid red;
+			left: 0;
+			top: 0;
+		}
+
+		#index_selectArea__2G3Z3 {
+			border: 1px solid red;
+			position: fixed;
+			z-index: 2147483645;
+		}
+	</style>
+	<style type="text/css">
+		.index_highlightSelector__-qiHd {
+			background-color: #fafafa !important;
+			outline: 3px dashed #1976d2 !important;
+			opacity: 0.8 !important;
+			cursor: pointer !important;
+			transition: opacity 0.5s ease !important;
+		}
+	</style>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1194.0" data-gr-ext-installed="">
+	<form name="frm1" class="inline-form" action="" method="post">
+		<div>
+			<style>
+				.hamburger {
+					padding: 0px;
+					background-color: #ffffff;
+					margin-right: 0px;
+					border: 0px;
+					max-width: 25px;
+				}
+
+				.b {
+					width: 20px;
+					height: 2px;
+					background-color: #000000;
+					margin-bottom: 2px;
+					margin-left: 0px;
+					display: block !important;
+				}
+
+				.nav {
+					position: fixed;
+					z-index: 1000;
+					border: 1px solid #000000;
+					background-color: #ffffff;
+					padding: 1rem;
+				}
+
+				.ulNav {
+					margin: 0px;
+					padding: 0px;
+				}
+			</style>
+			<button type="button" class="hamburger" onclick="toggleNav();">
+				<div class="b"></div>
+				<div class="b"></div>
+				<div class="b"></div>
+			</button>
+			<div class="nav" id="mainNav" style="display:none;" onclick="toggleNav();">
+				<ul class="ulNav">
+					<li><a href="devtimelinereport.cfm">Timeline Report</a></li>
+					<li><a href="resourceusage.cfm">Resource Usage</a></li>
+					<li><a href="devtimelinebydeveloper.cfm">Developer Timeline</a></li>
+				</ul>
+			</div>
+			<script>
+				function toggleNav() {
+					let n = document.getElementById("mainNav");
+					if (n.style.display == "none") { n.style.display = "block"; } else { n.style.display = "none"; }
+				}
+			</script>
+		</div>
+		<div>
+			<label>Department</label>
+			<select name="dept" onchange="document.frm1.submit();">
+				<option value="BENEFITS">BENEFITS</option>
+				<option value="DEVSECOPS">DEVSECOPS</option>
+				<option value="ERP">ERP</option>
+				<option value="HR" selected="">HR</option>
+				<option value="IMP-AT">IMP-AT</option>
+				<option value="IMP-FP">IMP-FP</option>
+				<option value="IMP-YO">IMP-YO</option>
+				<option value="QA">QA</option>
+				<option value="SM-HR5">SM-HR5</option>
+				<option value="SPECIAL">SPECIAL</option>
+				<option value="TECH">TECH</option>
+			</select>
+			<a href="team.cfm?department=HR" target="_blank">Edit</a>
+		</div>
+		<div>
+			<label>PLAN DATE:</label>
+			<input type="date" name="txtStartDate" value="2024-09-09" size="10" maxlength="10"> -
+			<input type="date" name="txtEndDate" value="2024-09-09" size="10" maxlength="10">
+		</div>
+		<div>
+			<label>DEV:</label>
+			<select name="selEmp" onchange="frm1.submit()">
+				<option value="0">--Select--
+
+				</option>
+				<option value="33379">Anastasya Carlita
+				</option>
+				<option value="33511">Andry
+				</option>
+				<option value="39007">Famil Restu Pambudi Yusuf
+				</option>
+				<option value="33495">Jimmy Halim
+				</option>
+				<option value="39010">Kristian Tjandradiredja
+				</option>
+				<option value="33660">Maghdalena Septhy Prihatiningsih
+				</option>
+				<option value="41360">Nanda Firmansyah
+				</option>
+				<option value="33432">Nur Diana. S
+				</option>
+				<option value="33571">Rangga Rahmadi
+				</option>
+				<option value="33544">Regizla O. Huwae
+				</option>
+				<option value="33729">Ricky
+				</option>
+				<option value="33744">Rizki Syaifullah
+				</option>
+				<option value="40237">Shofan Amirudin
+				</option>
+				<option value="1">----------------------------------------
+				</option>
+				<option value="42675">Ade Firman Ardiansyah
+				</option>
+				<option value="42643">Adven Adam Khasbialloh
+				</option>
+				<option value="38824">Afriya Safitrie
+				</option>
+				<option value="40774">Ahmad Banyu Rachman
+				</option>
+				<option value="43139">Ali Susanto
+				</option>
+				<option value="42897">Altundri Wahyu Hidayatullah
+				</option>
+				<option value="38948">Alvin Indra Cahya
+				</option>
+				<option value="43780">Arif Widiasan Subagio
+				</option>
+				<option value="37069">Daniel Adi Wijaya
+				</option>
+				<option value="43889">Dilivio Cullen L Tilaar
+				</option>
+				<option value="43141">Dini Mustika
+				</option>
+				<option value="40363">Erlina
+				</option>
+				<option value="43096">Ermadani Dyah Rachmawati
+				</option>
+				<option value="40042">Fadlan Wildan
+				</option>
+				<option value="39505">Faissy Gratty Jenifer Ratu
+				</option>
+				<option value="43781">Farrell Adra Khalfani
+				</option>
+				<option value="39015">Ferdian R Saputra
+				</option>
+				<option value="38798">Indah Ainur Rahma
+				</option>
+				<option value="43284">Indra Septian Heru Sasongko
+				</option>
+				<option value="42978">Jufrensius Antony Barasa
+				</option>
+				<option value="42290">Mohamad Rizal Khamami
+				</option>
+				<option value="41447">Mohammad Taufiqurrahman Farhansyah Putra
+				</option>
+				<option value="39875">Muhammad Hidayatullah
+				</option>
+				<option value="42190">Muhammad Banyu Mubarok
+				</option>
+				<option value="41187">Muhammad Irfan Bisyr
+				</option>
+				<option value="43617">Muhammad Nur Ichsan
+				</option>
+				<option value="43839">Nathaniel Dwiputra Kuantama
+				</option>
+				<option value="42981">Ningsih Adityas
+				</option>
+				<option value="43784">Oky Trilupito
+				</option>
+				<option value="42294">Restu Averian Putra
+				</option>
+				<option value="43613">Rizki Dharmawan Pohan
+				</option>
+				<option value="43252">Salman Said Ramadhan
+				</option>
+				<option value="43302">Stevano Titondea Prayoga Putra
+				</option>
+				<option value="41265" selected="">Syaeful Amri
+				</option>
+				<option value="39480">Syaifullah
+				</option>
+				<option value="42373">Vincent Handoko
+				</option>
+				<option value="40720">Yehezkiel Wijaya
+				</option>
+				<option value="88">*ALL*
+				</option>
+			</select>
+		</div>
+		<div>
+			<input type="checkbox" name="chkincludeteam" onclick="frm1.submit()">include team members
+		</div>
 
 
-<div>
-<input type="checkbox" name="chkinclusive"  onclick="frm1.submit()">inclusive
-</div>
+		<div>
+			<input type="checkbox" name="chkinclusive" onclick="frm1.submit()">inclusive
+		</div>
 
-<div>
-	<input type="submit" name="btnSubmit" value="View">
-</div>
-<br>
-<div>
-	<label>TASK:</label>
-	<input type="checkbox" name="chktasktype" value="E" checked>Enhancement 
-	<input type="checkbox" name="chktasktype" value="BE" checked>Bug (External)
-	<input type="checkbox" name="chktasktype" value="BI" checked>Bug (Internal)
-	<input type="checkbox" name="chktasktype" value="I" checked>IOW
-	<input type="checkbox" name="chktasktype" value="S" checked>Support
-	<input type="checkbox" name="chktasktype" value="P" >Proposed Enc
-	<input type="checkbox" name="chktasktype" value="CRQ" checked>Change Request
-	<input type="checkbox" name="chktasktype" value="T" >Testing
-	
-</div>
-<div>
-	<input type="checkbox" name="chkshowrelated" value="1"  onclick="frm1.submit()">Show Related Task
-</div>
-<div>
-	<input type="checkbox" name="chktimeline" value="1"  onclick="frm1.submit()">Timeline format
-</div>
-<br>
-<div>
-	<input type="checkbox" name="chkonlycurrent" value="1" checked>Only show tasks with plan date within the period
-</div>
-<div>
-	<input type="checkbox" name="chkShowTicket" value="1" >Show Ticket No
-</div>
-<div>
-	<input type="checkbox" name="chkShowNoAssignmentEmp" value="1" >Show Employee Without Assignment
-</div>
-</form>
+		<div>
+			<input type="submit" name="btnSubmit" value="View">
+		</div>
+		<br>
+		<div>
+			<label>TASK:</label>
+			<input type="checkbox" name="chktasktype" value="E" checked="">Enhancement
+			<input type="checkbox" name="chktasktype" value="BE" checked="">Bug (External)
+			<input type="checkbox" name="chktasktype" value="BI" checked="">Bug (Internal)
+			<input type="checkbox" name="chktasktype" value="I" checked="">IOW
+			<input type="checkbox" name="chktasktype" value="S" checked="">Support
+			<input type="checkbox" name="chktasktype" value="P">Proposed Enc
+			<input type="checkbox" name="chktasktype" value="CRQ" checked="">Change Request
+			<input type="checkbox" name="chktasktype" value="T">Testing
 
-
-
+		</div>
+		<div>
+			<input type="checkbox" name="chkshowrelated" value="1" onclick="frm1.submit()">Show Related Task
+		</div>
+		<div>
+			<input type="checkbox" name="chktimeline" value="1" onclick="frm1.submit()">Timeline format
+		</div>
+		<br>
+		<div>
+			<input type="checkbox" name="chkonlycurrent" value="1" checked="">Only show tasks with plan date within the
+			period
+		</div>
+		<div>
+			<input type="checkbox" name="chkShowTicket" value="1">Show Ticket No
+		</div>
+		<div>
+			<input type="checkbox" name="chkShowNoAssignmentEmp" value="1">Show Employee Without Assignment
+		</div>
+	</form>
 
 
-<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="0">
-	<tr>
-		<th rowspan="2">NO</th>
-		<th rowspan="2">Resource</th>
-		<th rowspan="2">Man-Hours</th>
-		
-			<th colspan="4">August</th>
-		
-			<th colspan="14">September</th>
-		
-	</tr>
-	<tr>
-		
-		<th width="22" >28</th>
-		
-		<th width="22" >29</th>
-		
-		<th width="22" >30</th>
-		
-		<th width="22" class="bgtoday">31</th>
-		
-		<th width="22" >1</th>
-		
-		<th width="22" >2</th>
-		
-		<th width="22" >3</th>
-		
-		<th width="22" >4</th>
-		
-		<th width="22" >5</th>
-		
-		<th width="22" >6</th>
-		
-		<th width="22" >7</th>
-		
-		<th width="22" >8</th>
-		
-		<th width="22" >9</th>
-		
-		<th width="22" >10</th>
-		
-		<th width="22" >11</th>
-		
-		<th width="22" >12</th>
-		
-		<th width="22" >13</th>
-		
-		<th width="22" >14</th>
-		
-	</tr>
-	
-		<tr style="background-color:#EEEEEE;">
-			
-				<td rowspan="4">1</td>
-				<td rowspan="4"> 
-	
-		<img class="tippyimg" src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg" 
-			data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg' style='max-width:100px;max-height:133px;'>"
-			style="max-width:30px;max-height:75px;">
-		
-	Syaeful  Amri</td>
-				<td rowspan="4" align="center">124</td>
-				
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0955191">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0956727">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0956727">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0956727">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0956727">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0956727">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2406-0935121">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-		</tr>
-	
-		<tr style="background-color:#EEEEEE;">
-			
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957027">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0958143">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0958605">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0954552">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0954552">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0954552">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0949608">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-		</tr>
-	
-		<tr style="background-color:#EEEEEE;">
-			
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957858">
-							4.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts3 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0954627">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-		</tr>
-	
-		<tr style="background-color:#EEEEEE;">
-			
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0957908">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 "
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0958426">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				
-					class="bgsts2 bgstsend"
-				
-				>
-					
-						<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
-								data-ticket="TCK2408-0958426">
-							8.00 
-						</button>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				
-				>
-					
-				</td>
-				
-				<td
-				class="bgoff"
-				
-				>
-					
-				</td>
-				
-		</tr>
-	
 
-</table>
-<br>
-<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
-<tr><th>LEGEND</th></tr>
-<tr><td>
-	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
-	<tr>
-	<th width="15" class="bgtoday">31</th>
-	<td>Today</td>
-	</tr>
+
+
+	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="0">
+		<tbody>
+			<tr>
+				<th rowspan="2">NO</th>
+				<th rowspan="2">Resource</th>
+				<th rowspan="2">Man-Hours</th>
+
+				<th colspan="1">September</th>
+
+			</tr>
+			<tr>
+
+				<th width="22">9</th>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td rowspan="6">1</td>
+				<td rowspan="6">
+
+					<img class="tippyimg"
+						src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg"
+						data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/62010211790.jpg' style='max-width:100px;max-height:133px;'>"
+						style="max-width:30px;max-height:75px;" tabindex="0">
+
+					Syaeful Amri
+				</td>
+				<td rowspan="6" align="center">76</td>
+
+				<td class="bgsts2 bgstsend">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2409-0960967">
+						8.00
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td class="bgsts3 ">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2408-0954552">
+						4.00
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td class="bgsts3 bgstsend">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2409-0960981">
+						8.00
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td class="bgsts2 ">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2409-0961186">
+						8.00
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td class="bgsts3 ">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2409-0961422">
+						8.00
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr style="background-color:#EEEEEE;">
+
+				<td class="bgsts2 bgstsend">
+
+					<button type="button" class="btn-link" onclick="MicroModal.show('modal-1'); loadTicket(this);"
+						data-ticket="TCK2409-0961530">
+						8.00
+					</button>
+
+				</td>
+
+			</tr>
+
+
+		</tbody>
 	</table>
-</td></tr>
-<tr><td>
+	<br>
 	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
-	<tr><td width="15" class="bgsts1">&nbsp;</td><td>Open/Reopen</td></tr>
-	<tr><td width="15" class="bgsts3">&nbsp;</td><td>Responded</td></tr>
-	<tr><td width="15" class="bgsts2">&nbsp;</td><td>Fixed</td></tr>
-	<tr><td width="15" class="bgsts4">&nbsp;</td><td>Closed</td></tr>
+		<tbody>
+			<tr>
+				<th>LEGEND</th>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+						<tbody>
+							<tr>
+								<th width="15" class="bgtoday">11</th>
+								<td>Today</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+						<tbody>
+							<tr>
+								<td width="15" class="bgsts1">&nbsp;</td>
+								<td>Open/Reopen</td>
+							</tr>
+							<tr>
+								<td width="15" class="bgsts3">&nbsp;</td>
+								<td>Responded</td>
+							</tr>
+							<tr>
+								<td width="15" class="bgsts2">&nbsp;</td>
+								<td>Fixed</td>
+							</tr>
+							<tr>
+								<td width="15" class="bgsts4">&nbsp;</td>
+								<td>Closed</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
+						<tbody>
+							<tr>
+								<td class="fontred">TASK NO</td>
+								<td>Plan date not set or is expired</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
 	</table>
-</td></tr>
-<tr><td>
-	<table border="0" style="border: 1px solid black;" cellspacing="1" cellpadding="4">
-	<tr><td class="fontred">TASK NO</td><td>Plan date not set or is expired</td></tr>
-	</table>
-</td></tr>
-</table>	
-	
-<script>
-	tippy('.tippyimg', { theme: 'light', });
-</script>
+
+	<script>
+		tippy('.tippyimg', { theme: 'light', });
+	</script>
 
 
 
-<style>
-/**************************\
+	<style>
+		/**************************\
   Basic Modal Styles
 \**************************/
-.modal {
-}
+		.modal {}
 
-.modal__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+		.modal__overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.6);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 
-.modal__container {
-  background-color: #fff;
-  padding: 30px;
-  max-width: 50vw;
-  max-height: 100vh;
-  border-radius: 4px;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
+		.modal__container {
+			background-color: #fff;
+			padding: 30px;
+			max-width: 50vw;
+			max-height: 100vh;
+			border-radius: 4px;
+			overflow-y: auto;
+			box-sizing: border-box;
+		}
 
-.modal__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+		.modal__header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 
-.modal__title {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.25;
-  color: #565656;
-  box-sizing: border-box;
-}
+		.modal__title {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-weight: 600;
+			font-size: 1.25rem;
+			line-height: 1.25;
+			color: #565656;
+			box-sizing: border-box;
+		}
 
-.modal__close {
-  background: transparent;
-  border: 0;
-}
+		.modal__close {
+			background: transparent;
+			border: 0;
+		}
 
-.modal__header .modal__close:before { content: "\2715"; }
+		.modal__header .modal__close:before {
+			content: "\2715";
+		}
 
-.modal__content {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-  color: rgba(0,0,0,.8);
-}
+		.modal__content {
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+			line-height: 1.5;
+			color: rgba(0, 0, 0, .8);
+		}
 
-.modal__btn {
-  font-size: .875rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  background-color: #e6e6e6;
-  color: rgba(0,0,0,.8);
-  border-radius: .25rem;
-  border-style: none;
-  border-width: 0;
-  cursor: pointer;
-  -webkit-appearance: button;
-  text-transform: none;
-  overflow: visible;
-  line-height: 1.15;
-  margin: 0;
-  will-change: transform;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  transition: -webkit-transform .25s ease-out;
-  transition: transform .25s ease-out;
-  transition: transform .25s ease-out,-webkit-transform .25s ease-out;
-}
+		.modal__btn {
+			font-size: .875rem;
+			padding-left: 1rem;
+			padding-right: 1rem;
+			padding-top: .5rem;
+			padding-bottom: .5rem;
+			background-color: #e6e6e6;
+			color: rgba(0, 0, 0, .8);
+			border-radius: .25rem;
+			border-style: none;
+			border-width: 0;
+			cursor: pointer;
+			-webkit-appearance: button;
+			text-transform: none;
+			overflow: visible;
+			line-height: 1.15;
+			margin: 0;
+			will-change: transform;
+			-moz-osx-font-smoothing: grayscale;
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+			transition: -webkit-transform .25s ease-out;
+			transition: transform .25s ease-out;
+			transition: transform .25s ease-out, -webkit-transform .25s ease-out;
+		}
 
-.modal__btn:focus, .modal__btn:hover {
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
-}
+		.modal__btn:focus,
+		.modal__btn:hover {
+			-webkit-transform: scale(1.05);
+			transform: scale(1.05);
+		}
 
-.modal__btn-primary {
-  background-color: #00449e;
-  color: #fff;
-}
+		.modal__btn-primary {
+			background-color: #00449e;
+			color: #fff;
+		}
 
 
 
-/**************************\
+		/**************************\
   Demo Animation Style
 \**************************/
-@keyframes mmfadeIn {
-    from { opacity: 0; }
-      to { opacity: 1; }
-}
+		@keyframes mmfadeIn {
+			from {
+				opacity: 0;
+			}
 
-@keyframes mmfadeOut {
-    from { opacity: 1; }
-      to { opacity: 0; }
-}
+			to {
+				opacity: 1;
+			}
+		}
 
-@keyframes mmslideIn {
-  from { transform: translateY(15%); }
-    to { transform: translateY(0); }
-}
+		@keyframes mmfadeOut {
+			from {
+				opacity: 1;
+			}
 
-@keyframes mmslideOut {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10%); }
-}
+			to {
+				opacity: 0;
+			}
+		}
 
-.micromodal-slide {
-  display: none;
-}
+		@keyframes mmslideIn {
+			from {
+				transform: translateY(15%);
+			}
 
-.micromodal-slide.is-open {
-  display: block;
-}
+			to {
+				transform: translateY(0);
+			}
+		}
 
-.micromodal-slide[aria-hidden="false"] .modal__overlay {
-  animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
-}
+		@keyframes mmslideOut {
+			from {
+				transform: translateY(0);
+			}
 
-.micromodal-slide[aria-hidden="false"] .modal__container {
-  animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
-}
+			to {
+				transform: translateY(-10%);
+			}
+		}
 
-.micromodal-slide[aria-hidden="true"] .modal__overlay {
-  animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
-}
+		.micromodal-slide {
+			display: none;
+		}
 
-.micromodal-slide[aria-hidden="true"] .modal__container {
-  animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
-}
+		.micromodal-slide.is-open {
+			display: block;
+		}
 
-.micromodal-slide .modal__container,
-.micromodal-slide .modal__overlay {
-  will-change: transform;
-}
-</style>
-<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
-    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-        <header class="modal__header">
-          <h2 class="modal__title" id="modal-1-title">
-            Ticket
-          </h2>
-          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-        </header>
-        <main class="modal__content" id="modal-1-content">
-          <p>
-            Try hitting the <code>tab</code> key and notice how the focus stays within the modal itself. Also, <code>esc</code> to close modal.
-          </p>
-        </main>
-        <footer class="modal__footer">
-          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
-        </footer>
-      </div>
-    </div>
-</div>
-<script>
-var tiket = [];
+		.micromodal-slide[aria-hidden="false"] .modal__overlay {
+			animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+		}
 
-		tiket["TCK2408-0949608"] = {
-			subject: "PT Semesta Mandiri Transport\t(sfgo5901)  - Attendance Correction Request tidak mngupdate attedance status", 
-			description: "<p>Dear Mas Syaeful &amp; team,</p><p><br></p><p>Mohon bantuannya Mas.</p><p>Terdapat case di PT Semesta Mandiri Transport(sfgo5901), ada karyawan (a.n. Mulyono) melakukan attendance correction request dan statusnya tidak terupdate. Untuk request tersebut pun sudah fully approved, di attendance edit pun juga tidak terupdate. Detail akan saya sampaikan melalui Skype.</p><p><br></p><p>Terima kasih Mas.</p><p><br></p><p>Regards,</p><p>Rana.</p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "3",
-			hour: "8", 
-			planStart: "09/06/2024", 
-			planEnd: "09/06/2024",
-			slaDesc: "Major",
-			reportedDate: "08/01/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "SFHR60",
-			projectName: "SunFish HR Product 6",
-			photo: "62010211790.jpg",
-			reportedBy: "Rana Sekar Adhi",
-		};
-	
-		tiket["TCK2408-0958605"] = {
-			subject: "w0004 UBE : \'Shift schedule request\' button is not shows at UBA and UBS", 
-			description: "<p>hi Amri,</p><p>please help fixing with \'shift schedule request\' button&nbsp;</p><p>when I\'m switch to UBS and UBA \'shift schedule request\' button is disappear</p><p>it\'s only show in UBE company</p><p><span style=\"background-color: rgb(255, 255, 0);\">Remark : please fix this issue both on Production and on UAT database</span></p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">credential for w0004</strong></p><p>Account Name: w0004&nbsp;</p><p>User Name: w0004&nbsp;</p><p>Password:P@ss1234&nbsp;</p><p>&nbsp;</p><p><span style=\"background-color: rgb(229, 241, 143);\">for production</span></p><p><strong>PROD : myworkplaze.com&nbsp;</strong></p><p><strong>Authorization ID:</strong> 73BDF640665E7FDA38D16A36AC780FE7&nbsp;</p><p>Pass Key : F631CC977A3F104AB32891CAC809464B88E32817DA09049A1CDDF07DCBC70DF9&nbsp;</p><p><span style=\"background-color: rgb(229, 241, 143);\">for UAT</span></p><p><strong>UAT : </strong><a href=\"https://uat.myworkplaze.com/\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>https://uat.myworkplaze.com</strong></a></p><p><strong>Authorization ID:</strong> 140C20D3FF8DD6A6BAD3B3063F0838F5&nbsp;</p><p><strong>Pass Key </strong>: 3EB0BCA2DA9FC0B7FAE9AD102AE8B1CF6D45445A04E13343E8BB172E1F5BEC5</p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "2",
-			hour: "8", 
-			planStart: "08/30/2024", 
-			planEnd: "08/30/2024",
-			slaDesc: "Major",
-			reportedDate: "08/30/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "SF7HR",
-			projectName: "SFWorkplaze HR",
-			photo: "62010211790.jpg",
-			reportedBy: "Soraya  HTH",
-		};
-	
-		tiket["TCK2408-0957908"] = {
-			subject: "[TCK2408-0957027] [MY][LLMR]System did not check the employee\'s actual break time when calculating the OT hours", 
-			description: "<p>Overtime hour tidak memotong actual break time hour, tapi memotong break time default yang sudah dijadwalkan. Misalkan :</p><p>Employee working from 09:00 to 23:00 (OFF Day)</p><p>and took break on the following time:</p><p><span style=\"color: rgb(255, 0, 0);\">11:00 to 14:00</span></p><p><span style=\"color: rgb(255, 0, 0);\">17:00 to 19:00</span></p><p><br></p><p><span style=\"color: rgb(255, 0, 0);\">Total Break = 5 Hours</span></p><p><br></p><p>By right, the system should calculate the OT hours as per the following:</p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">09:00 to 23:00 = 14 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Break = 5 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Total OT = 14 -5&nbsp;= 9 Hours</strong></p><p><br></p><p>But currently the system calculated it as 11 Hours.</p><p><br></p>", 
+		.micromodal-slide[aria-hidden="false"] .modal__container {
+			animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+		}
+
+		.micromodal-slide[aria-hidden="true"] .modal__overlay {
+			animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+		}
+
+		.micromodal-slide[aria-hidden="true"] .modal__container {
+			animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+		}
+
+		.micromodal-slide .modal__container,
+		.micromodal-slide .modal__overlay {
+			will-change: transform;
+		}
+	</style>
+	<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+		<div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+			<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+				<header class="modal__header">
+					<h2 class="modal__title" id="modal-1-title">
+						Ticket
+					</h2>
+					<button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+				</header>
+				<main class="modal__content" id="modal-1-content">
+					<p>
+						Try hitting the <code>tab</code> key and notice how the focus stays within the modal itself.
+						Also, <code>esc</code> to close modal.
+					</p>
+				</main>
+				<footer class="modal__footer">
+					<button class="modal__btn" data-micromodal-close=""
+						aria-label="Close this dialog window">Close</button>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<script>
+		var tiket = [];
+
+		tiket["TCK2409-0960967"] = {
+			subject: "[TCK2409-0959795] Bugs Query Penjumlahan AWH Pada Attendance Interface Process ",
+			description: "<p>Dear Mas Syaeful,</p><p><br></p><p>Mohon bantuannya untuk hasil dari query perhitungan jumlah AWH pada Attendance Interface Result tidak sesuai hasilnya dengan Actual Work Minute pada Employee Attendance Report. Querynya berada di function \"sumAwh\" dengan path <strong>Ctag &gt; bproc &gt; ta &gt; SFInterfaceProcess.cfc</strong></p><p><br></p><p>Terimakasih</p><p>Kind Regards,</p><p>Nurul Khairina Surbakti</p>",
 			assignee_name: "Syaeful  Amri",
 			status: "2",
-			hour: "8", 
-			planStart: "08/28/2024", 
-			planEnd: "08/28/2024",
+			hour: "16",
+			planStart: "09/06/2024",
+			planEnd: "09/09/2024",
 			slaDesc: "Medium",
-			reportedDate: "08/28/2024",
+			reportedDate: "09/06/2024",
 			encDesc: "-",
 			releaseDate: "-",
 			projectid: "SFHR60",
 			projectName: "SunFish HR Product 6",
 			photo: "62010211790.jpg",
-			reportedBy: "Mauriska  Salsabila",
+			reportedBy: "Syfa Aulia Nur Hakim",
 		};
-	
-		tiket["TCK2408-0957027"] = {
-			subject: "[MY][LLMR]System did not check the employee\'s actual break time when calculating the OT hours", 
-			description: "<p>Hi DO teams,</p><p><br></p><p>Now system just simply calculate the OT as , 14 - 3 hours (3 hours is referring to the employee\'s scheduled break time) which is wrong and below is the sample scenario:</p><p><br></p><p>Employee working from 09:00 to 23:00 (OFF Day)</p><p>and took break on the following time:</p><p><span style=\"color: rgb(255, 0, 0);\">11:00 to 14:00</span></p><p><span style=\"color: rgb(255, 0, 0);\">17:00 to 19:00</span></p><p><br></p><p><span style=\"color: rgb(255, 0, 0);\">Total Break = 5 Hours</span></p><p><br></p><p>By right, the system should calculate the OT hours as per the following:</p><p><br></p><p><strong style=\"background-color: rgb(255, 255, 0);\">09:00 to 23:00 = 14 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Break = 5 Hours</strong></p><p><strong style=\"background-color: rgb(255, 255, 0);\">Total OT = 14 -5&nbsp;= 9 Hours</strong></p><p><br></p><p>But currently the system calculated it as 11 Hours.</p><p><br></p><p><br></p><p>For the login credentials you may contact below Skype :</p><p><br></p><p><span style=\"color: rgb(0, 0, 0);\">live:wingyanfoong</span></p><p><br></p>", 
+
+		tiket["TCK2409-0961422"] = {
+			subject: "[BERCACONSTRUCT] - Karyawan tidak bisa cuti request di tanggal 6 September 2024.",
+			description: "<p>Ketika HR mau requestkan cuti untuk karyawan atas nama : Hendriyanto pada tanggal 6 September 2024, muncul alert Employee Shift salah. Namun setelah di check, dan di test di tanggal lain seperti tgl 4 atau 13 September 2024, Preview Approver berhasil.</p><p>Errornya hanya muncul ketika di tanggal  6 September 2024 saja.</p>",
 			assignee_name: "Syaeful  Amri",
 			status: "3",
-			hour: "8", 
-			planStart: "08/27/2024", 
-			planEnd: "08/28/2024",
-			slaDesc: "Critical",
-			reportedDate: "08/26/2024",
+			hour: "16",
+			planStart: "09/09/2024",
+			planEnd: "09/10/2024",
+			slaDesc: "Major",
+			reportedDate: "09/09/2024",
 			encDesc: "-",
 			releaseDate: "-",
-			projectid: "SFHR60",
-			projectName: "SunFish HR Product 6",
+			projectid: "BIC",
+			projectName: "BICC Berca Cables, PT",
 			photo: "62010211790.jpg",
-			reportedBy: "Helpdesk  KES",
+			reportedBy: "Calvin  Kurniawan",
 		};
-	
+
 		tiket["TCK2408-0954552"] = {
-			subject: "[W0001] Validasi grace time di flexible shift with limit", 
-			description: "<p>Dear Amri,</p><p><br></p><p>Minta tolong dicek di account w0001, untuk employee 30615 ketika melakukan clock time ada beberapa attendance record yang gagal diproses karena outside grace in, tetapi ada 1 record yang berhasil di proses. Shift employee tersebut adalah flexible shift with limit 07:30-08:30.</p><p><br></p><p>Mohon penjelasannya untuk case ini, bagaimana sistem mengkategorikan sebagai outside grace in untuk flexible shift with limit.</p><p><br></p><p>Credential PM skype.</p><p><br></p><p>Terima kasih.</p>", 
+			subject: "[W0001] Validasi grace time di flexible shift with limit",
+			description: "<p>Dear Amri,</p><p><br></p><p>Minta tolong dicek di account w0001, untuk employee 30615 ketika melakukan clock time ada beberapa attendance record yang gagal diproses karena outside grace in, tetapi ada 1 record yang berhasil di proses. Shift employee tersebut adalah flexible shift with limit 07:30-08:30.</p><p><br></p><p>Mohon penjelasannya untuk case ini, bagaimana sistem mengkategorikan sebagai outside grace in untuk flexible shift with limit.</p><p><br></p><p>Credential PM skype.</p><p><br></p><p>Terima kasih.</p>",
 			assignee_name: "Syaeful  Amri",
 			status: "3",
-			hour: "12", 
-			planStart: "09/02/2024", 
-			planEnd: "09/04/2024",
+			hour: "12",
+			planStart: "09/09/2024",
+			planEnd: "09/11/2024",
 			slaDesc: "Major",
 			reportedDate: "08/19/2024",
 			encDesc: "-",
@@ -1179,268 +1408,199 @@ var tiket = [];
 			photo: "62010211790.jpg",
 			reportedBy: "Faoziyati  Meiningsih",
 		};
-	
-		tiket["TCK2408-0958426"] = {
-			subject: "[ptamv] tidak muncul cutinya di add employee", 
-			description: "<p>tidak muncul cutinya di add employee</p>", 
+
+		tiket["TCK2409-0961186"] = {
+			subject: "[BE] Attendance Correction add new Props to API Response",
+			description: "<p>AttCorrectionRequest.getShiftDaily</p><p><br></p><p>from that API, please add \"daytype\" and \"flexibleshift\" from the response, to check shift overlapping</p>",
 			assignee_name: "Syaeful  Amri",
 			status: "2",
-			hour: "16", 
-			planStart: "08/29/2024", 
-			planEnd: "08/30/2024",
-			slaDesc: "Major",
-			reportedDate: "08/29/2024",
+			hour: "16",
+			planStart: "09/09/2024",
+			planEnd: "09/10/2024",
+			slaDesc: "Medium",
+			reportedDate: "09/09/2024",
 			encDesc: "-",
 			releaseDate: "-",
 			projectid: "SF7HR",
 			projectName: "SFWorkplaze HR",
 			photo: "62010211790.jpg",
-			reportedBy: "Lusiana  ",
+			reportedBy: "Famil Restu Pambudi Yusuf",
 		};
-	
-		tiket["TCK2408-0954627"] = {
-			subject: "[mmki] Overtime Index Tidak Sesuai", 
-			description: "<p>Dear Mas Amri,</p><p><br></p><p>Mohon bantuannya untuk mengecek case yang terjadi di account MMKI yaitu OT index pada tanggal 13 Juli 2024 atas nama karyawan Kusno (07925) mendapatkan OT index 55 padahal jika dihitung secara manual seharusnya hanya 19. Minta bantuannya juga ya mas, untuk mengecek data lain yang terindikasi case yang sama.</p><p><br></p><p>Terimakasih.</p>", 
+
+		tiket["TCK2409-0961530"] = {
+			subject: "[abenson] REFLECT AS ABSENT EVEN ITS APPROVED LEAVE",
+			description: "<p>HI,</p><p>See attached file refflected absent even its approved leave.. tried to reprocess but still getting same output. absent on sept 2..</p><p>pls check other employees with same scenario and give feedback on this.</p><p>pls correct it asap.</p><p><br></p><p>Thanks</p>",
 			assignee_name: "Syaeful  Amri",
-			status: "3",
-			hour: "8", 
-			planStart: "09/06/2024", 
-			planEnd: "09/06/2024",
-			slaDesc: "Major",
-			reportedDate: "08/19/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "SF7HR",
-			projectName: "SFWorkplaze HR",
-			photo: "62010211790.jpg",
-			reportedBy: "Rahmita  Ramadhanty",
-		};
-	
-		tiket["TCK2406-0935121"] = {
-			subject: "[tpg] Data overtime request tidak masuk ke attendance", 
-			description: "<p>Siang, mau tanya</p><p>Ada case di tpg, dimana saat employee request overtime, ada yg overtime request nya gak masuk ke attendance</p><p><br></p><p>Detail ovtime:&nbsp;</p><p>Overtime Request dan nama-tanggal yg tdk masuk ke data attendance: </p><ul><li>OVR-202406-001068 (Sugiarto 31 May 2024 - 1 Juni 2024), </li><li>OVR-202406-001071 (SUJIANTO 31 May 2024)</li></ul><p><br></p><p>Namun ada yg data overtime request tadinya tidak masuk, namun setelah disubmit via att edit jadi masuk overtimenya. Contohnya data berikut :&nbsp;</p><ul><li> Sutarko 31 May 2024 dengan ovt request OVR-202406-001070</li></ul><p><br></p><p>Apakah boleh bantu cek? Karena klien gak mau submit data attendance list one by one</p><p>Untuk credential, akan dijapri&nbsp;</p><p>Terima kasih</p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "3",
-			hour: "8", 
-			planStart: "09/06/2024", 
-			planEnd: "09/06/2024",
+			status: "2",
+			hour: "8",
+			planStart: "09/09/2024",
+			planEnd: "09/09/2024",
 			slaDesc: "Critical",
-			reportedDate: "06/18/2024",
+			reportedDate: "09/09/2024",
 			encDesc: "-",
 			releaseDate: "-",
-			projectid: "SF7HR",
-			projectName: "SFWorkplaze HR",
+			projectid: "SFHR60",
+			projectName: "SunFish HR Product 6",
 			photo: "62010211790.jpg",
-			reportedBy: "Alexander Mario Gracias",
+			reportedBy: "G Fermin  DO.PH",
 		};
-	
-		tiket["TCK2408-0956727"] = {
-			subject: "w0001 : TG please check why employee clock out before shift end time not show EAO and UNPR", 
-			description: "<p>Dear Amri,</p><p>i\'ve tested an employee request first half day leave on flexible shift with limit time 07.30 - 08.30 and productivity is 480 mins , the system show shift time 08.30-17.30&nbsp;then I add time in out&nbsp;10.00 -16.00 the system not show EAO because shift end time is 17.30 and this employee out 16.00 , it should show UNPR and EAO but the system not show then I change time form 10.00 to 10.01 and end time still 16.00 , it\'s show EAO and UNPR</p><p>&nbsp;</p><p>please check why employee clock out before shift end time not show EAO and UNPR</p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "2",
-			hour: "12", 
-			planStart: "08/29/2024", 
-			planEnd: "09/02/2024",
-			slaDesc: "Major",
-			reportedDate: "08/25/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "SF7HR",
-			projectName: "SFWorkplaze HR",
-			photo: "62010211790.jpg",
-			reportedBy: "Pimpaka  THT",
-		};
-	
-		tiket["TCK2408-0958143"] = {
-			subject: "[DICPH] NON-HOLIDAY DATE IS TAGGED AS PHWD", 
-			description: "<p>Good day team,</p><p><br></p><p>I hope this message finds you well. I am reaching out to request your assistance with an issue we are experiencing. On August 27, this date was tagged as a holiday. The holiday tag was deleted, and a shift upload was performed to change the day type from a holiday. However, the date is still showing as <strong>PHWD</strong> (Public Holiday Worked Day) instead of <strong>WD</strong> (Working Day).</p><p><br></p><p>Could you please help correct this for the employees affected? Attached is the attendance report for employees who have August 27 tagged as PHWD.</p><p><br></p><p>Thank you for your support and prompt attention to this matter.</p><p><br></p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "2",
-			hour: "8", 
-			planStart: "08/29/2024", 
-			planEnd: "08/29/2024",
-			slaDesc: "Critical",
-			reportedDate: "08/29/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "GDHRPRO",
-			projectName: "GreatDay Pro",
-			photo: "62010211790.jpg",
-			reportedBy: "M Serrano  DO.PH",
-		};
-	
-		tiket["TCK2408-0957858"] = {
-			subject: "[MY][BKIMD]Shift Scheduler Screen displayed wrong date", 
-			description: "<p>Hi Jimmy,</p><p><br></p><p>employee ID:SW1880</p><p>Leave request had been approval for the MC.</p><p>in shift scheduler screen displayed to wrong date.</p><p>shift scheduler report not issue.</p><p><br></p><p>live:gamekings</p>", 
+
+		tiket["TCK2409-0960981"] = {
+			subject: "Check Attendance Status For Payslip",
+			description: "<p>Dear dev,</p><p><br></p><p>mohon bantuannya untuk membuat pilihan OTPH_HALF kedalam payslip</p><p>dikarenakan di Malaysia untuk mendapatkan OTPH_HALF  itu butuh 8 jam kerja</p><p>Tetapi di CEVA, walaupun jam krjanya tidak 8 jam, tetep dikasi full 1</p><p><br></p><p>terimakasih</p>",
 			assignee_name: "Syaeful  Amri",
 			status: "3",
-			hour: "16", 
-			planStart: "08/28/2024", 
-			planEnd: "09/02/2024",
+			hour: "8",
+			planStart: "09/09/2024",
+			planEnd: "09/09/2024",
 			slaDesc: "Minor",
-			reportedDate: "08/28/2024",
+			reportedDate: "09/06/2024",
 			encDesc: "-",
 			releaseDate: "-",
-			projectid: "SFHR60",
-			projectName: "SunFish HR Product 6",
+			projectid: "CVM",
+			projectName: "Ceva Logistics Malaysia Sdn Bhd",
 			photo: "62010211790.jpg",
-			reportedBy: "Lim Choon Tat  KES",
+			reportedBy: "Michelle  Prizcillya",
 		};
-	
-		tiket["TCK2408-0955191"] = {
-			subject: "[cpginc] Overtime Request Report_error", 
-			description: "<p>Hi Jimmy, seeking your immediate assistance on this matter. The client cannot extract a overtime request report. The result was \"No data\". I already raised this to you last July 26 thru skype. Kindly check this again as the client needed the report. </p>", 
-			assignee_name: "Syaeful  Amri",
-			status: "2",
-			hour: "12", 
-			planStart: "08/26/2024", 
-			planEnd: "08/28/2024",
-			slaDesc: "Major",
-			reportedDate: "08/20/2024",
-			encDesc: "-",
-			releaseDate: "-",
-			projectid: "SFHR60",
-			projectName: "SunFish HR Product 6",
-			photo: "62010211790.jpg",
-			reportedBy: "Magbanua  HCX",
-		};
-	
-
-var tStatus = [];
-tStatus[1] = "Open";
-tStatus[2] = "Fixed";
-tStatus[3] = "Responded";
-tStatus[4] = "Closed";
-tStatus[5] = "Reopen";
-tStatus[6] = "Cancelled";
-
-function strip(html){
-   let doc = new DOMParser().parseFromString(html, 'text/html');
-   return doc.body.textContent || "";
-}
-
-function loadTicket(btn) {
-	let m = document.getElementById("modal-1-content");
-	while (m.firstChild) {
-		m.removeChild(m.firstChild);
-	}
-	let ul = document.createElement("UL");
-	
-	let t = btn.getAttribute("data-ticket");
-	if (t) {
-		a = t.split(",");
-		for (i=0; i<a.length; i++) {
-			li = document.createElement("LI");
-			title = document.createElement("H4");
-			link = document.createElement("a");
-			linkText = document.createTextNode(a[i]);
-			link.setAttribute('href', "https://sfsupport.dataon.com/app/ticket/forms/" + a[i]);
-			link.setAttribute('target', '_blank');
-			link.appendChild(linkText);
-			title.appendChild(link);
-			
-			titleText = " (" + tStatus[tiket[a[i]].status] + ") - [ " + tiket[a[i]].planStart + " - " + tiket[a[i]].planEnd + " ]";
-			titleText += " - " + tiket[a[i]].hour + "hrs";
-			title.appendChild(document.createTextNode(titleText));
-			li.appendChild(title);
-			if (tiket[a[i]]) {
-				console.log(tiket[a[i]], "test data");
-				projectid = document.createElement("P");
-				projectid.appendChild(document.createTextNode("Project : [" + tiket[a[i]].projectid + "] " + tiket[a[i]].projectName));
-				li.appendChild(projectid);
-				subject = document.createElement("P");
-				subject.appendChild(document.createTextNode("Subject : " + tiket[a[i]].subject));
-				li.appendChild(subject);
-				desc = document.createElement("P");
-				desc.appendChild(document.createTextNode("Description : " + strip(tiket[a[i]].description)));
-				li.appendChild(desc);
-				assignee_name = document.createElement("P");
-				assignee_name.appendChild(document.createTextNode("Assignee Name : " + tiket[a[i]].assignee_name));
-				li.appendChild(assignee_name);
-
-				
-				
-				image = document.createElement('img');
-				// image.style='max-width:250px;'
-				// image.style='max-height:250px;'
-
-				image.setAttribute(
-					'style',
-					'max-width:150px;max-height:200px;',
-				);
-
-            	image.src = 'https://sfsupport.dataon.com/api/Attachments/profilePictures/download/'+tiket[a[i]].photo;
-				// image.style='max-width:50px;'
-
-				// li.appendChild(image);
-
-				table = document.createElement("table");
-				// table.style='max-width:370px;'
-
-				table.setAttribute(
-					'style',
-					'width:500px; background-color:white;',
-				);
 
 
-				tr = document.createElement("tr");
-				td1 = document.createElement("td");
-				td2 = document.createElement("td");
-				// td2.style='max-width:170px;'
-				// td2.style='backgroud-color:white;'
+		var tStatus = [];
+		tStatus[1] = "Open";
+		tStatus[2] = "Fixed";
+		tStatus[3] = "Responded";
+		tStatus[4] = "Closed";
+		tStatus[5] = "Reopen";
+		tStatus[6] = "Cancelled";
 
-				td1.setAttribute(
-					'style',
-					'max-width:150px; background-color:white;',
-				);
-				
-				td2.setAttribute(
-					'style',
-					'width:250px; background-color:white; padding-left:10px',
-				);
-
-				td1.appendChild(image);
-
-				slaDesc = document.createElement("P");
-				slaDesc.appendChild(document.createTextNode("SLA : " + tiket[a[i]].slaDesc));
-				td2.appendChild(slaDesc);
-				reportedDate = document.createElement("P");
-				reportedDate.appendChild(document.createTextNode("Reported Date : " + tiket[a[i]].reportedDate));
-				td2.appendChild(reportedDate);
-				reportedBy = document.createElement("P");
-				reportedBy.appendChild(document.createTextNode("Reported By : " + tiket[a[i]].reportedBy));
-				td2.appendChild(reportedBy);
-				encDesc = document.createElement("P");
-				encDesc.appendChild(document.createTextNode("ENC : " + tiket[a[i]].encDesc));
-				td2.appendChild(encDesc);
-				releaseDate = document.createElement("P");
-				releaseDate.appendChild(document.createTextNode("Target Release Date : " + tiket[a[i]].releaseDate));
-				td2.appendChild(releaseDate);
-
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-
-				table.appendChild(tr);
-
-				li.appendChild(table);
-			
-			/*	document.getElementById('body').appendChild(img);
-
-
-				<img class="tippyimg" src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#" 
-			data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#' style='max-width:100px;'>"
-			style="max-width:30px;">
-				*/
-				
-				// li.appendChild(document.createTextNode("Assignee : " + tiket[a[i]].assignee_name));
-			}
-			ul.appendChild(li);
+		function strip(html) {
+			let doc = new DOMParser().parseFromString(html, 'text/html');
+			return doc.body.textContent || "";
 		}
-	}
-	m.appendChild(ul);
-}
-</script>
+
+		function loadTicket(btn) {
+			let m = document.getElementById("modal-1-content");
+			while (m.firstChild) {
+				m.removeChild(m.firstChild);
+			}
+			let ul = document.createElement("UL");
+
+			let t = btn.getAttribute("data-ticket");
+			if (t) {
+				a = t.split(",");
+				for (i = 0; i < a.length; i++) {
+					li = document.createElement("LI");
+					title = document.createElement("H4");
+					link = document.createElement("a");
+					linkText = document.createTextNode(a[i]);
+					link.setAttribute('href', "https://sfsupport.dataon.com/app/ticket/forms/" + a[i]);
+					link.setAttribute('target', '_blank');
+					link.appendChild(linkText);
+					title.appendChild(link);
+
+					titleText = " (" + tStatus[tiket[a[i]].status] + ") - [ " + tiket[a[i]].planStart + " - " + tiket[a[i]].planEnd + " ]";
+					titleText += " - " + tiket[a[i]].hour + "hrs";
+					title.appendChild(document.createTextNode(titleText));
+					li.appendChild(title);
+					if (tiket[a[i]]) {
+						console.log(tiket[a[i]], "test data");
+						projectid = document.createElement("P");
+						projectid.appendChild(document.createTextNode("Project : [" + tiket[a[i]].projectid + "] " + tiket[a[i]].projectName));
+						li.appendChild(projectid);
+						subject = document.createElement("P");
+						subject.appendChild(document.createTextNode("Subject : " + tiket[a[i]].subject));
+						li.appendChild(subject);
+						desc = document.createElement("P");
+						desc.appendChild(document.createTextNode("Description : " + strip(tiket[a[i]].description)));
+						li.appendChild(desc);
+						assignee_name = document.createElement("P");
+						assignee_name.appendChild(document.createTextNode("Assignee Name : " + tiket[a[i]].assignee_name));
+						li.appendChild(assignee_name);
 
 
 
+						image = document.createElement('img');
+						// image.style='max-width:250px;'
+						// image.style='max-height:250px;'
+
+						image.setAttribute(
+							'style',
+							'max-width:150px;max-height:200px;',
+						);
+
+						image.src = 'https://sfsupport.dataon.com/api/Attachments/profilePictures/download/' + tiket[a[i]].photo;
+						// image.style='max-width:50px;'
+
+						// li.appendChild(image);
+
+						table = document.createElement("table");
+						// table.style='max-width:370px;'
+
+						table.setAttribute(
+							'style',
+							'width:500px; background-color:white;',
+						);
+
+
+						tr = document.createElement("tr");
+						td1 = document.createElement("td");
+						td2 = document.createElement("td");
+						// td2.style='max-width:170px;'
+						// td2.style='backgroud-color:white;'
+
+						td1.setAttribute(
+							'style',
+							'max-width:150px; background-color:white;',
+						);
+
+						td2.setAttribute(
+							'style',
+							'width:250px; background-color:white; padding-left:10px',
+						);
+
+						td1.appendChild(image);
+
+						slaDesc = document.createElement("P");
+						slaDesc.appendChild(document.createTextNode("SLA : " + tiket[a[i]].slaDesc));
+						td2.appendChild(slaDesc);
+						reportedDate = document.createElement("P");
+						reportedDate.appendChild(document.createTextNode("Reported Date : " + tiket[a[i]].reportedDate));
+						td2.appendChild(reportedDate);
+						reportedBy = document.createElement("P");
+						reportedBy.appendChild(document.createTextNode("Reported By : " + tiket[a[i]].reportedBy));
+						td2.appendChild(reportedBy);
+						encDesc = document.createElement("P");
+						encDesc.appendChild(document.createTextNode("ENC : " + tiket[a[i]].encDesc));
+						td2.appendChild(encDesc);
+						releaseDate = document.createElement("P");
+						releaseDate.appendChild(document.createTextNode("Target Release Date : " + tiket[a[i]].releaseDate));
+						td2.appendChild(releaseDate);
+
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+
+						table.appendChild(tr);
+
+						li.appendChild(table);
+
+						/*	document.getElementById('body').appendChild(img);
+			
+			
+							<img class="tippyimg" src="https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#" 
+						data-tippy-content="<img src='https://sfsupport.dataon.com/api/Attachments/profilePictures/download/#arguments.photofile#' style='max-width:100px;'>"
+						style="max-width:30px;">
+							*/
+
+						// li.appendChild(document.createTextNode("Assignee : " + tiket[a[i]].assignee_name));
+					}
+					ul.appendChild(li);
+				}
+			}
+			m.appendChild(ul);
+		}
+	</script>
+
+
+
+</body>
+
+</html>

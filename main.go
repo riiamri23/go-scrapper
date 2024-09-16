@@ -11,6 +11,7 @@ import (
 
 	// "os"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gocolly/colly"
 )
 
@@ -19,12 +20,16 @@ type Product struct {
 	Url, Image, Name, Price string
 }
 
+type DataTask struct {
+	subject, description, assignee_name, status string
+}
+
 func main() {
-	var products []Product
+	var dataTasks []DataTask
 
 	// instantiate a new collector object
 	c := colly.NewCollector(
-		colly.AllowedDomains("www.scrapingcourse.com"),
+		colly.AllowedDomains("support.dataon.com"),
 	)
 
 	// called before an HTTP request is triggered
@@ -43,41 +48,39 @@ func main() {
 	})
 
 	// triggered when a CSS selector matches an element
-	c.OnHTML("a", func(e *colly.HTMLElement) {
+	c.OnHTML("body script:last-child", func(e *colly.HTMLElement) {
 		// printing all URLs associated with the <a> tag on the page
 		// initialize a new Product instance
-		product := Product{}
+		s := e.DOM.Find("script").Text()
 
-		// scrape the target data
-		product.Url = e.ChildAttr("a", "href")
-		product.Image = e.ChildAttr("img", "src")
-		product.Name = e.ChildText(".product-name")
-		product.Price = e.ChildText(".price")
+		// spew.Dump(s)
 
+		dataTask := DataTask{}
+		dataTask.description = s
 		// add the product instance with scraped data to the list of products
-		products = append(products, product)
-
+		dataTasks = append(dataTasks, dataTask)
+		spew.Dump(dataTasks)
 	})
 
 	// triggered once scraping is done (e.g., write the data to a CSV file)
 	c.OnScraped(func(r *colly.Response) {
 		// Convert the slice to JSON and write to a file
-		if err := writeToJSONFile(products, "product.json"); err != nil {
+		if err := writeToJSONFile(dataTasks, "dataTasks.json"); err != nil {
 			fmt.Println("Error:", err)
 		} else {
-			fmt.Println("Data has been written to people.json")
+			fmt.Println("Data has been written to dataTasks.json")
 		}
 
-		if err := writeToCSVFile(products, "product.csv"); err != nil {
-			fmt.Println("Error:", err)
-		} else {
-			fmt.Println("Data Has been written to product.json")
-		}
+		// if err := writeToCSVFile(dataTasks, "dataTasks.csv"); err != nil {
+		// 	fmt.Println("Error:", err)
+		// } else {
+		// 	fmt.Println("Data Has been written to product.json")
+		// }
 
 	})
 
 	// open the target URL
-	c.Visit("https://www.scrapingcourse.com/ecommerce")
+	c.Visit("https://support.dataon.com/dashboard/devtimelinebydeveloper.cfm?dept=HR&txtStartDate=2024-09-09&txtEndDate=2024-09-09&selEmp=41265&btnSubmit=View&chktasktype=E&chktasktype=BE&chktasktype=BI&chktasktype=I&chktasktype=S&chktasktype=CRQ&chkonlycurrent=1")
 
 }
 
