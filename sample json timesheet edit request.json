@@ -1,0 +1,103 @@
+{
+    "ENTRIES": {
+        "REQUEST_NO": "FM-HR-TSR-INI-2409-183875",
+        "ACTREQUEST": "draft",
+        "STARTDATE": "2024-09-17",
+        "ENDDATE": "2024-09-17",
+        "ISMAX": false,
+        "REQUESTBY": "DO215572",
+        "REQUESTFOR": "DO215572",
+        "REFDOC": "",
+        "REMARK": "",
+        "TEMPLATE": {
+            "HDN_ROWCOUNT": 0,
+            "DETAIL": []
+        },
+        "HDN_FIELD": [],
+        "DATES": {
+            "09172024": {
+                "HDN_ROWCOUNT": 2,
+                "STATUS": "",
+                "ACTUALSTARTTIME": "2024-09-17 07:53",
+                "ACTUALENDTIME": "",
+                "SHIFT_CODE": "SHRD00001",
+                "DETAIL": [
+                    {
+                        "key": 0,
+                        "dateRange": [
+                            "2024-09-17T01:00:00.000Z",
+                            "2024-09-17T05:00:00.000Z"
+                        ],
+                        "starttime": "08:00",
+                        "endtime": "12:00",
+                        "flag_startdate": 0,
+                        "flag_enddate": 0,
+                        "hourDuration": 4,
+                        "minuteDuration": 0,
+                        "hdn_seltask": "TCK2409-0963398",
+                        "task_desc": "",
+                        "hdn_selactivity": "DEV-SUP",
+                        "hdn_selprojectphase": "SF7HR~TLSF7HR13202406271016",
+                        "hdn_selproject": "SF7HR",
+                        "chkactivitytype": null,
+                        "chkbillable": null,
+                        "remark": "TCK2409-0963398 | testing",
+                        "projectName": "SFWorkplaze HR",
+                        "activityName": "IMP/Partner Support",
+                        "taskName": "TCK2409-0963398",
+                        "timelineName": "HR-DEV13",
+                        "additional_field": [],
+                        "fieldList": [],
+                        "srcflag": "TS",
+                        "id_task": "TCK2409-0963398",
+                        "detail_id": 1,
+                        "projectCode": "SF7HR",
+                        "location": "",
+                        "attachment": [],
+                        "costcenter_code": "0151",
+                        "uniqueId": 5479187,
+                        "isDisabled": false,
+                        "isNotComplete": false,
+                        "isDisabledButton": false,
+                        "validationValue": 0,
+                        "validationType": 0
+                    },
+                    {
+                        "dateRange": [
+                            "2024-09-17T06:00:00.000Z",
+                            "2024-09-17T10:00:00.000Z"
+                        ],
+                        "validationValue": 0,
+                        "validationType": 0,
+                        "hdn_seltask": "TCK2409-0963398",
+                        "hdn_selactivity": "DEV-SUP",
+                        "hdn_selproject": null,
+                        "hdn_selprojectphase": "SF7HR~TLSF7HR13202406271016",
+                        "task_desc": null,
+                        "remark": "TCK2409-0963398 | testing2",
+                        "minuteDuration": 0,
+                        "hourDuration": 4,
+                        "starttime": "13:00",
+                        "endtime": "17:00",
+                        "flag_startdate": 0,
+                        "flag_enddate": 0,
+                        "chkactivitytype": null,
+                        "chkbillable": null,
+                        "fieldList": [],
+                        "srcflag": "TS",
+                        "id_task": "",
+                        "detail_id": null,
+                        "projectCode": "",
+                        "location": null,
+                        "attachment": [],
+                        "uniqueId": 9336662,
+                        "isDisabled": false,
+                        "isNotComplete": true,
+                        "isDisabledButton": false,
+                        "costcenter_code": "0151"
+                    }
+                ]
+            }
+        }
+    }
+}

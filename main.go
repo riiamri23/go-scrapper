@@ -24,6 +24,11 @@ type DataTask struct {
 func main() {
 	var dataTasks []DataTask
 
+	var dateSelected = "2024-09-17"
+	var emp_id = "41265"
+
+	var linkUrl = "https://support.dataon.com/dashboard/devtimelinebydeveloper.cfm?dept=HR&txtStartDate=" + dateSelected + "&txtEndDate=" + dateSelected + "&selEmp=" + emp_id + "&btnSubmit=View&chktasktype=E&chktasktype=BE&chktasktype=BI&chktasktype=I&chktasktype=S&chktasktype=CRQ&chkonlycurrent=1"
+
 	// instantiate a new collector object
 	c := colly.NewCollector(
 		colly.AllowedDomains("support.dataon.com"),
@@ -222,7 +227,7 @@ func main() {
 	})
 
 	// open the target URL
-	c.Visit("https://support.dataon.com/dashboard/devtimelinebydeveloper.cfm?dept=HR&txtStartDate=2024-09-09&txtEndDate=2024-09-09&selEmp=41265&btnSubmit=View&chktasktype=E&chktasktype=BE&chktasktype=BI&chktasktype=I&chktasktype=S&chktasktype=CRQ&chkonlycurrent=1")
+	c.Visit(linkUrl)
 
 }
 
