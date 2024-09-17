@@ -111,6 +111,92 @@ func main() {
 			} else {
 				dataTask.Status = matchStatus[1]
 			}
+
+			// find the regex specific data for hour
+			reHour := regexp.MustCompile(`hour:\s*"([^"]+)"`)
+			matchHour := reHour.FindStringSubmatch(dataTCK)
+			if matchHour == nil {
+				dataTask.Hour = ""
+			} else {
+				dataTask.Hour = matchHour[1]
+			}
+
+			// find the regex specific data for plan start
+			rePlanStart := regexp.MustCompile(`planStart:\s*"([^"]+)"`)
+			matchPlanStart := rePlanStart.FindStringSubmatch(dataTCK)
+			if matchPlanStart == nil {
+				dataTask.PlanStart = ""
+			} else {
+				dataTask.PlanStart = matchPlanStart[1]
+			}
+
+			// find the regex specific data for status
+			rePlanEnd := regexp.MustCompile(`planEnd:\s*"([^"]+)"`)
+			matchPlanEnd := rePlanEnd.FindStringSubmatch(dataTCK)
+			if matchPlanEnd == nil {
+				dataTask.PlanEnd = ""
+			} else {
+				dataTask.PlanEnd = matchPlanEnd[1]
+			}
+
+			// find the regex specific data for status
+			reSlaDesc := regexp.MustCompile(`tslaDesc:\s*"([^"]+)"`)
+			matchSlaDesc := reSlaDesc.FindStringSubmatch(dataTCK)
+			if matchSlaDesc == nil {
+				dataTask.SlaDesc = ""
+			} else {
+				dataTask.SlaDesc = matchSlaDesc[1]
+			}
+
+			// find the regex specific data for status
+			reReportedDate := regexp.MustCompile(`reportedDate:\s*"([^"]+)"`)
+			matchReportedDate := reReportedDate.FindStringSubmatch(dataTCK)
+			if matchReportedDate == nil {
+				dataTask.ReportedDate = ""
+			} else {
+				dataTask.ReportedDate = matchReportedDate[1]
+			}
+			// find the regex specific data for status
+			reEncDesc := regexp.MustCompile(`encDesc:\s*"([^"]+)"`)
+			matchEncDesc := reEncDesc.FindStringSubmatch(dataTCK)
+			if matchEncDesc == nil {
+				dataTask.EncDesc = ""
+			} else {
+				dataTask.EncDesc = matchEncDesc[1]
+			}
+			// find the regex specific data for status
+			reReleaseDate := regexp.MustCompile(`releaseDate:\s*"([^"]+)"`)
+			matchReleaseDate := reReleaseDate.FindStringSubmatch(dataTCK)
+			if matchReleaseDate == nil {
+				dataTask.ReleaseDate = ""
+			} else {
+				dataTask.ReleaseDate = matchReleaseDate[1]
+			}
+			// find the regex specific data for status
+			reProjectId := regexp.MustCompile(`projectid:\s*"([^"]+)"`)
+			matchProjectId := reProjectId.FindStringSubmatch(dataTCK)
+			if matchProjectId == nil {
+				dataTask.ProjectId = ""
+			} else {
+				dataTask.ProjectId = matchProjectId[1]
+			}
+			// find the regex specific data for status
+			reProjectName := regexp.MustCompile(`projectName:\s*"([^"]+)"`)
+			matchProjectName := reProjectName.FindStringSubmatch(dataTCK)
+			if matchProjectName == nil {
+				dataTask.ProjectName = ""
+			} else {
+				dataTask.ProjectName = matchProjectName[1]
+			}
+			// find the regex specific data for status
+			reReportedBy := regexp.MustCompile(`reportedBy:\s*"([^"]+)"`)
+			matchReportedBy := reReportedBy.FindStringSubmatch(dataTCK)
+			if matchReportedBy == nil {
+				dataTask.ReportedBy = ""
+			} else {
+				dataTask.ReportedBy = matchReportedBy[1]
+			}
+
 			// add the product instance with scraped data to the list of products
 			dataTasks = append(dataTasks, dataTask)
 		}
