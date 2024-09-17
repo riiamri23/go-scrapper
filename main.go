@@ -140,7 +140,7 @@ func main() {
 			}
 
 			// find the regex specific data for status
-			reSlaDesc := regexp.MustCompile(`tslaDesc:\s*"([^"]+)"`)
+			reSlaDesc := regexp.MustCompile(`slaDesc:\s*"([^"]+)"`)
 			matchSlaDesc := reSlaDesc.FindStringSubmatch(dataTCK)
 			if matchSlaDesc == nil {
 				dataTask.SlaDesc = ""
