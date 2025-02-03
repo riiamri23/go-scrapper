@@ -1,0 +1,63 @@
+{
+    "ENTRIES": {
+        "REQUEST_NO": "",
+        "ACTREQUEST": "draft",
+        "STARTDATE": "2025-02-03",
+        "ENDDATE": "2025-02-03",
+        "ISMAX": false,
+        "REQUESTBY": "DO215572",
+        "REQUESTFOR": "DO215572",
+        "REFDOC": "",
+        "REMARK": "",
+        "TEMPLATE": {
+            "HDN_ROWCOUNT": 0,
+            "DETAIL": []
+        },
+        "HDN_FIELD": [],
+        "DATES": {
+            "02032025": {
+                "HDN_ROWCOUNT": 1,
+                "STATUS": "",
+                "ACTUALSTARTTIME": "2025-02-03 07:35",
+                "ACTUALENDTIME": "2025-02-03 17:56",
+                "SHIFT_CODE": "SHRD00001",
+                "DETAIL": [
+                    {
+                        "dateRange": [
+                            "2025-02-03T01:00:00.000Z",
+                            "2025-02-03T10:00:00.000Z"
+                        ],
+                        "validationValue": 0,
+                        "validationType": 0,
+                        "hdn_seltask": "TCK2501-0999699",
+                        "hdn_selactivity": "DEV-FIXING",
+                        "hdn_selproject": null,
+                        "hdn_selprojectphase": "SF7HR~TLSF7HR15202412310916",
+                        "task_desc": null,
+                        "remark": "TCK2501-0999699 | Testing api",
+                        "minuteDuration": 0,
+                        "hourDuration": 9,
+                        "starttime": "08:00",
+                        "endtime": "17:00",
+                        "flag_startdate": 0,
+                        "flag_enddate": 0,
+                        "chkactivitytype": null,
+                        "chkbillable": null,
+                        "fieldList": [],
+                        "srcflag": "TS",
+                        "id_task": "",
+                        "detail_id": null,
+                        "projectCode": "",
+                        "location": null,
+                        "attachment": [],
+                        "uniqueId": 9816154,
+                        "isDisabled": false,
+                        "isNotComplete": true,
+                        "isDisabledButton": false,
+                        "costcenter_code": "0151"
+                    }
+                ]
+            }
+        }
+    }
+}

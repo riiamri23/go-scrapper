@@ -5,11 +5,15 @@ import (
 
 	"encoding/csv"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"os"
 	"regexp"
 
+	// "time"
+
+	"webscraper/data/timesheet"
 	// "os"
 
 	"github.com/davecgh/go-spew/spew"
@@ -18,13 +22,37 @@ import (
 
 // initialize a data structure to keep the scraped data
 type DataTask struct {
-	Ticket, Subject, Description, AssigneeName, Status, Hour, PlanStart, PlanEnd, SlaDesc, ReportedDate, EncDesc, ReleaseDate, ProjectId, ProjectName, ReportedBy string
+	Ticket       string `json:"Ticket"`
+	Subject      string `json:"Subject"`
+	Description  string `json:"Description"`
+	AssigneeName string `json:"AssigneeName"`
+	Status       string `json:"Status"`
+	Hour         string `json:"Hour"`
+	PlanStart    string `json:"PlanStart"`
+	PlanEnd      string `json:"PlanEnd"`
+	SlaDesc      string `json:"SlaDesc"`
+	ReportedDate string `json:"ReportedDate"`
+	EncDesc      string `json:"EncDesc"`
+	ReleaseDate  string `json:"ReleaseDate"`
+	ProjectId    string `json:"ProjectId"`
+	ProjectName  string `json:"ProjectName"`
+	ReportedBy   string `json:"ReportedBy"`
 }
 
 func main() {
+
+	isTimesheet := flag.String("timesheet", "", "")
+	// Parse command-line flags
+	flag.Parse()
+	if *isTimesheet != "" { // for run create api to timesheet json go run .\main.go -timesheet yes
+		// fmt.Println(*isTimesheet)
+		genPayloadTS()
+		return
+	}
+
 	var dataTasks []DataTask
 
-	var dateSelected = "2024-09-17"
+	var dateSelected = "2025-02-03"
 	var emp_id = "41265"
 
 	var linkUrl = "https://support.dataon.com/dashboard/devtimelinebydeveloper.cfm?dept=HR&txtStartDate=" + dateSelected + "&txtEndDate=" + dateSelected + "&selEmp=" + emp_id + "&btnSubmit=View&chktasktype=E&chktasktype=BE&chktasktype=BI&chktasktype=I&chktasktype=S&chktasktype=CRQ&chkonlycurrent=1"
@@ -285,4 +313,56 @@ func writeToCSVFile(data interface{}, filename string) error {
 	defer writer.Flush()
 
 	return nil
+}
+
+func genPayloadTS() {
+	// fmt.Println("testing")
+
+	// currentDate := time.Now().Format("20060102") // e.g., "02032025"
+	// startTime := "2025-02-03T01:00:00.000Z"
+	// endTime := "2025-02-03T10:00:00.000Z"
+
+	data, err := os.ReadFile("dataTasks.json")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	// spew.Dump(data)
+
+	var dataTasks []DataTask
+	err = json.Unmarshal(data, &dataTasks)
+	if err != nil {
+		fmt.Println("Error decoding JSON:", err)
+		return
+	}
+
+	// Print the loaded data
+	for _, task := range dataTasks {
+		fmt.Printf("Ticket: %s\nSubject: %s\nAssignee: %s\nStatus: %s\n\n",
+			task.Ticket, task.Subject, task.AssigneeName, task.Status)
+	}
+
+	var entries timesheet.Entries
+	entries = timesheet.Entries{
+		RequestNo:  "",
+		ActRequest: "draft",
+		StartDate:  "2025-02-03",
+		EndDate:    "2025-02-03",
+		IsMax:      false,
+		RequestBy:  "DO215572",
+		RequestFor: "DO215572",
+		RefDoc:     "",
+		Remark:     "",
+		Template: timesheet.Template{
+			HdnRowCount: 0,
+			Detail:      []timesheet.EntryDetail{},
+		},
+		HdnField: []string{},
+		Dates:    map[string]timesheet.DateEntry{},
+	}
+
+	spew.Dump(entries)
+
+	return
 }
