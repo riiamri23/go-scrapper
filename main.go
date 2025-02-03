@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"time"
 
 	// "time"
 
@@ -319,8 +320,25 @@ func genPayloadTS() {
 	// fmt.Println("testing")
 
 	// currentDate := time.Now().Format("20060102") // e.g., "02032025"
-	// startTime := "2025-02-03T01:00:00.000Z"
-	// endTime := "2025-02-03T10:00:00.000Z"
+	startTime := "2025-02-03T01:00:00.000Z"
+	endTime := "2025-02-03T10:00:00.000Z"
+
+	// Parse the start time to extract date
+	parsedStartTime, err := time.Parse(time.RFC3339, startTime)
+	if err != nil {
+		fmt.Println("Error parsing start time:", err)
+		return
+	}
+
+	parsedEndTime, err := time.Parse(time.RFC3339, endTime)
+	if err != nil {
+		fmt.Println("Error parsing end time:", err)
+		return
+	}
+
+	// Format the StartDate and EndDate dynamically
+	startDateFormatted := parsedStartTime.Format("2006-01-02") // YYYY-MM-DD
+	endDateFormatted := parsedEndTime.Format("2006-01-02")     // YYYY-MM-DD
 
 	data, err := os.ReadFile("dataTasks.json")
 	if err != nil {
@@ -347,8 +365,8 @@ func genPayloadTS() {
 	entries = timesheet.Entries{
 		RequestNo:  "",
 		ActRequest: "draft",
-		StartDate:  "2025-02-03",
-		EndDate:    "2025-02-03",
+		StartDate:  startDateFormatted,
+		EndDate:    endDateFormatted,
 		IsMax:      false,
 		RequestBy:  "DO215572",
 		RequestFor: "DO215572",
