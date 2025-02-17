@@ -2,14 +2,15 @@ package timesheet
 
 // Define the structure matching the JSON format
 type EntryDetail struct {
+	Key                int      `json:"key"`
 	DateRange          []string `json:"dateRange"`
 	ValidationValue    int      `json:"validationValue"`
 	ValidationType     int      `json:"validationType"`
 	HdnSelTask         string   `json:"hdn_seltask"`
 	HdnSelActivity     string   `json:"hdn_selactivity"`
-	HdnSelProject      *string  `json:"hdn_selproject"`
+	HdnSelProject      string   `json:"hdn_selproject"`
 	HdnSelProjectPhase string   `json:"hdn_selprojectphase"`
-	TaskDesc           *string  `json:"task_desc"`
+	TaskDesc           string   `json:"task_desc"`
 	Remark             string   `json:"remark"`
 	MinuteDuration     int      `json:"minuteDuration"`
 	HourDuration       int      `json:"hourDuration"`

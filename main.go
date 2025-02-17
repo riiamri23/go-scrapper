@@ -320,8 +320,11 @@ func genPayloadTS() {
 	// fmt.Println("testing")
 
 	// currentDate := time.Now().Format("20060102") // e.g., "02032025"
+	requestfor := "DO215572"
 	startTime := "2025-02-03T01:00:00.000Z"
 	endTime := "2025-02-03T10:00:00.000Z"
+	actualStartTime := "2025-02-03 07:35"
+	actualEndTime := "2025-02-03 17:56"
 
 	// Parse the start time to extract date
 	parsedStartTime, err := time.Parse(time.RFC3339, startTime)
@@ -339,6 +342,8 @@ func genPayloadTS() {
 	// Format the StartDate and EndDate dynamically
 	startDateFormatted := parsedStartTime.Format("2006-01-02") // YYYY-MM-DD
 	endDateFormatted := parsedEndTime.Format("2006-01-02")     // YYYY-MM-DD
+	// Generate the key for "DATES" map
+	dateKey := parsedStartTime.Format("02012006") // DDMMYYYY
 
 	data, err := os.ReadFile("dataTasks.json")
 	if err != nil {
@@ -355,21 +360,54 @@ func genPayloadTS() {
 		return
 	}
 
+	var entryDetails []timesheet.EntryDetail
+	idx := 0
 	// Print the loaded data
 	for _, task := range dataTasks {
 		fmt.Printf("Ticket: %s\nSubject: %s\nAssignee: %s\nStatus: %s\n\n",
 			task.Ticket, task.Subject, task.AssigneeName, task.Status)
+		entryDetails = append(entryDetails, timesheet.EntryDetail{
+			Key:                idx,
+			DateRange:          []string{startTime, endTime},
+			StartTime:          "08:00",
+			EndTime:            "12:00",
+			FlagStartDate:      0,
+			FlagEndDate:        0,
+			HourDuration:       4,
+			MinuteDuration:     0,
+			HdnSelTask:         task.Ticket,
+			TaskDesc:           "",
+			HdnSelActivity:     "DEV-SUP",
+			HdnSelProjectPhase: "SF7HR~TLSF7HR13202406271016",
+			HdnSelProject:      "SF7HR",
+			ChkActivityType:    nil,
+			ChkBillable:        nil,
+			Remark:             task.Ticket,
+			FieldList:          []string{},
+			SrcFlag:            "TS",
+			IDTask:             "",
+			DetailID:           nil,
+			ProjectCode:        "",
+			Location:           nil,
+			Attachment:         []string{},
+			UniqueID:           idx,
+			IsDisabled:         false,
+			IsNotComplete:      true,
+			IsDisabledButton:   false,
+			CostCenterCode:     "0151",
+		})
+
+		idx++
 	}
 
-	var entries timesheet.Entries
-	entries = timesheet.Entries{
+	var entries = timesheet.Entries{
 		RequestNo:  "",
 		ActRequest: "draft",
 		StartDate:  startDateFormatted,
 		EndDate:    endDateFormatted,
 		IsMax:      false,
-		RequestBy:  "DO215572",
-		RequestFor: "DO215572",
+		RequestBy:  requestfor,
+		RequestFor: requestfor,
 		RefDoc:     "",
 		Remark:     "",
 		Template: timesheet.Template{
@@ -377,10 +415,25 @@ func genPayloadTS() {
 			Detail:      []timesheet.EntryDetail{},
 		},
 		HdnField: []string{},
-		Dates:    map[string]timesheet.DateEntry{},
+		Dates: map[string]timesheet.DateEntry{
+			dateKey: {
+				HdnRowCount:     1,
+				Status:          "",
+				ActualStartTime: actualStartTime,
+				ActualEndTime:   actualEndTime,
+				ShiftCode:       "SHRD00001",
+				Detail:          entryDetails,
+			},
+		},
+	}
+
+	if err := writeToJSONFile(entries, "timesheet.json"); err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Data has been written to timesheet.json")
 	}
 
 	spew.Dump(entries)
 
-	return
+	// return
 }
